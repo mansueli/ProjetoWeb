@@ -1,0 +1,75 @@
+div.content {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    width: 940px;
+}
+
+div.stream {
+    float: left;
+    width: 600px;
+}
+
+div.stream .post {
+    margin-bottom: 25px;
+    width: 500px;
+}
+
+div.stream .post div {
+    margin-bottom: 10px;
+}
+
+div.stream .post h2 {
+    font-size: 20px;
+}
+
+div.stream .post h2:hover {
+    color: #09F;
+}
+
+div.stream .post p {
+    font-size: 13px;
+}
+
+div.stream .post img {
+    display: block;
+    width: 100%;
+}
+
+div.stream .post .stats {
+    color: #999;
+}
+
+div.stream .post .stats span:hover {
+    text-decoration-line: underline;
+}
+
+.actions ul, li {
+    display: inline;
+}
+
+div.item .post .image {
+    background-color: blue;
+    height: 100px;
+}
+
+.btn.next {
+    background-color: #FF3C1F;
+    border-radius: 3px 0px 0px 3px;
+    color: white;
+    float: right;
+}
+
+.arrow {
+    border-top: 17px dashed transparent;
+    border-bottom: 17px dashed transparent;
+    border-left: 12px solid #FF3C1F;
+    display: inline-block;
+    float: right;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #EEE;
+    margin-bottom: 20px;
+}

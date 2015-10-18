@@ -1,0 +1,198 @@
+/*********************************************
+    General CSS
+
+**********************************************/
+body, h1, h2, h3, h4, li, ul, ol, a{
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+a {
+    text-decoration-line: none;
+}
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+/*********************************************
+    Top Menu
+
+**********************************************/
+a.logo {
+    display: inline-block;
+    height: 48px;
+    width: 64px;
+    background: transparent url("./img/logo.png") no-repeat scroll center center / 40px 40px;
+    text-indent: -9999px;
+}
+.menu {
+    background-color: #000000;
+}
+.menu .main {
+    float: left;
+    margin-right: 8px;
+}
+
+/*********************************************
+    Left side of top menu: Primary
+
+**********************************************/
+.menu .main .navmain{
+    text-align: center;
+    color: #FFFFFF;
+    border-right: 1px solid #333333;
+    font-weight: bold;
+    font-size: 13px;
+    display: inline-block;
+     height: 48px;
+}
+.menuLeft .main a.hot{
+    width: 55px;
+}
+.menuLeft .main a.trending{
+    width: 85px;
+}
+.menuLeft .main a.fresh{
+    width: 65px;
+}
+.menuLeft .main a.sections{
+    width: 85px;
+}
+.menuLeft .main a.selected{
+    background-color: #333333;
+}
+.main .navmain:hover {
+    background-color: #333333;
+    color: #FFFFFF;
+}
+/*********************************************
+    Left side of top menu: secondary
+
+**********************************************/
+ul li a {
+    color: #AAAAAA;
+    line-height: 48px;
+    font-size: 13px;
+    text-align: center;
+    box-sizing: border-box;
+}
+.navalt {
+    padding: 0 8px;
+}
+.navalt:hover {
+    color: #FFFFFF;
+}
+/*********************************************
+    Right Side of top Menu
+
+**********************************************/
+.menuRight {
+    position: absolute;
+    right: 10px;
+    top: 1px;
+}
+
+.search {
+   /* display: block;*/
+    width: 30px;
+    height: 30px;
+    text-indent: -999px;
+    overflow: hidden;
+    margin-top: -10px;
+    background: transparent url("./img/search.png") no-repeat left top;
+}
+.search:hover {
+    background-position: -30px 0px;
+}
+.function {
+    float: left;
+    padding: 9px 0px;
+
+}
+.rightitem{
+    font-size: 13px;
+    display: inline-block;
+    color: #AAAAAA;
+    font-weight: bold;
+}
+.menu .menuRight .function .btn {
+    background-color: #0099FF;
+    color: #FFF;
+}
+.menu .menuRight .function .btn:hover {
+    background-color: #FFF;
+    color: #000;
+}
+/*********************************************
+    Button CSS
+
+**********************************************/
+.btn {
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 34px;
+    padding: 6px;
+    text-align: center;
+}
+
+.btn .fa {
+    font-size: 20px;
+}
+
+.btn .label {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.btn.border {
+    border: 1px solid #DDD;
+    color: #999;
+}
+
+.btn.border:hover {
+    border-color: #999;
+}
+
+.actions .btn {
+    margin-right: 5px;
+}
+
+.btn.social {
+    color: white;
+}
+
+.btn.social.facebook {
+    background: #3B5998;
+}
+
+.btn.social.facebook:hover {
+    background: #4C708A;
+}
+
+.btn.social.twitter {
+    background: #00ACED;
+}
+
+.btn.social:last-child {
+    margin-right: 0;
+}
+
+.btn.social.twitter:hover {
+    background: #21C2FF;
+}
+
+.btn.half {
+    width: 49.3%;
+}
+
+@media (max-width: 1280px) {
+    .navalt {
+        visibility: hidden;
+        font-size: 0px;
+    }
+}
