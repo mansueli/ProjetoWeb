@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  *
@@ -25,6 +27,7 @@ public class PostEntity implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "userId")
+    @Cascade({CascadeType.SAVE_UPDATE})
     private UserEntity user;
 
     public PostEntity() {

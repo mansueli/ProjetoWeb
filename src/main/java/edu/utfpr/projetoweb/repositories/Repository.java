@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
 
+
 public class Repository<E> {
     
     final EntityManager em = Persistence.createEntityManagerFactory("web").createEntityManager();
@@ -29,8 +30,11 @@ public class Repository<E> {
     public void save(E entity){
         em.getTransaction().begin();
         em.merge(entity);
+        em.flush();
         em.getTransaction().commit();
+        
     }
+
     public void delete(E entity){
         em.getTransaction().begin();
         em.remove(entity);

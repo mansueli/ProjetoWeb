@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>Test</servlet-name>
-        <servlet-class>edu.utfpr.projetoweb.Test</servlet-class>
+        <servlet-name>JSPTest</servlet-name>
+        <servlet-class>edu.utfpr.projetoweb.servlets.JSPTest</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Test</servlet-name>
-        <url-pattern>/Test</url-pattern>
+        <servlet-name>jsp</servlet-name>
+        <url-pattern>/jsp/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JSPTest</servlet-name>
+        <url-pattern>/JSPTest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
