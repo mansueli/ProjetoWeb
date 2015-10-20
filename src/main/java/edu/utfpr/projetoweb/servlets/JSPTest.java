@@ -5,8 +5,12 @@
  */
 package edu.utfpr.projetoweb.servlets;
 
+import edu.utfpr.projetoweb.entities.PostEntity;
+import edu.utfpr.projetoweb.repositories.PostRepository;
+import edu.utfpr.projetoweb.repositories.UserRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author Rodrigo
  */
 public class JSPTest extends HttpServlet {
-
+        UserRepository userRepository = UserRepository.getInstance();
+        PostRepository postRepository = PostRepository.getInstance();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,7 +37,8 @@ public class JSPTest extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            List<PostEntity> postList = postRepository.getPostsbyLikes(0);
+            request.setAttribute("postList", postList);
             RequestDispatcher view = request.getRequestDispatcher("jsp/hot.jsp");
             view.forward(request, response);
         }

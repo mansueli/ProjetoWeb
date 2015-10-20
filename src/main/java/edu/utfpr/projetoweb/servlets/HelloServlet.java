@@ -53,20 +53,15 @@ public class HelloServlet extends HttpServlet {
      */
             UserEntity user = new UserEntity("testUser", "test@example.org","","1234");
             userRepository.save(user);
-            UserEntity user2 =  userRepository.findAll().get(0);
+            UserEntity user2 =  userRepository.findByUsername("testUser");
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet HelloServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HelloServlet at " + request.getContextPath() + "</h1><br/> <h2> Welcome " + user2.getUsername() +"2</h2>" );
+            out.println("<h1>Servlet HelloServlet at " + request.getContextPath() + "</h1><br/> <h2> Welcome " + user2.getUsername() +"</h2>" );
             boolean test = false;
-            try {
-               test =  user.getPasswordHash().equals(Encryption.getUserHash("1234",user.getSalt()));
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(HelloServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
             out.println("<p>test password check ="+ test +" </p>" );
             out.println("</body>");
             out.println("</html>");

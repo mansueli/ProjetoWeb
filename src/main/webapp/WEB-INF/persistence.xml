@@ -9,9 +9,8 @@
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.password" value="1234"/>
       <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-      <property name="javax.persistence.schema-generation.database.action" value="update"/>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
-      <!---<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
+      <property name="hibernate.ejb.entitymanager_factory_name" value="web" />
     </properties>
   </persistence-unit>
 </persistence>

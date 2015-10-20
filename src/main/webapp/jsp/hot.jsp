@@ -3,7 +3,7 @@
     Created on : Sep 22, 2015, 12:07:21 AM
     Author     : Rodrigo
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -23,26 +23,26 @@
     <body>
         <div class="menu">
             <div class="menuLeft">
-              <ul class="main">
-                <li><a class="logo" href="http://9gag.com">9GAG</a></li>
-                <li><a class="navmain hot selected" href="/hot">Hot</a></li>
-                <li><a class="navmain trending" href="/trending">Trending</a></li>
-                <li><a class="navmain fresh" href="/fresh">Fresh</a></li>
-                <li><a class="navmain sections" href="/sections">Sections</a></li>
-              </ul>
-              <ul>
-                <li><a class="navalt" href="/video">Video</a></li>
-                <li><a class="navalt" href="/cosplay">Cosplay</a></li>
-                <li><a class="navalt" href="/girl">Girl</a></li>
-                <li><a class="navalt" href="/comic">Comic</a></li>
-                <li><a class="navalt" href="/nsfw">NSFW</a></li>
-                <li><a class="navalt" href="/gif">GIF</a></li>
-                <li><a class="navalt" href="/wtf">WTF</a></li>
-                <li><a class="navalt" href="/geeky">Geeky</a></li>
-                <li><a class="navalt" href="/meme">Meme</a></li>
-                <li><a class="navalt" href="/mobile">ಠ_ಠ</a></li>
-                <li><a class="navalt new" href="/freegames">👉 FREE Games</a></li>
-              </ul>
+                <ul class="main">
+                    <li><a class="logo" href="http://9gag.com">9GAG</a></li>
+                    <li><a class="navmain hot selected" href="/hot">Hot</a></li>
+                    <li><a class="navmain trending" href="/trending">Trending</a></li>
+                    <li><a class="navmain fresh" href="/fresh">Fresh</a></li>
+                    <li><a class="navmain sections" href="/sections">Sections</a></li>
+                </ul>
+                <ul>
+                    <li><a class="navalt" href="/video">Video</a></li>
+                    <li><a class="navalt" href="/cosplay">Cosplay</a></li>
+                    <li><a class="navalt" href="/girl">Girl</a></li>
+                    <li><a class="navalt" href="/comic">Comic</a></li>
+                    <li><a class="navalt" href="/nsfw">NSFW</a></li>
+                    <li><a class="navalt" href="/gif">GIF</a></li>
+                    <li><a class="navalt" href="/wtf">WTF</a></li>
+                    <li><a class="navalt" href="/geeky">Geeky</a></li>
+                    <li><a class="navalt" href="/meme">Meme</a></li>
+                    <li><a class="navalt" href="/mobile">ಠ_ಠ</a></li>
+                    <li><a class="navalt new" href="/freegames">👉 FREE Games</a></li>
+                </ul>
             </div>
             <div class="menuRight">
                 <div class="function">
@@ -55,65 +55,65 @@
         <div class="content">
             <div class="stream">
                 <c:forEach var="post" items="${postList}">
-                <div class="post">
-                    <div>
-                        <h2>${post.getTitle}</h2>
-                    </div>
-                    <div>
-                        <img src='${post.imgURL}'/>
-                    </div>
-                    <p class="stats">
-                        <span>${post.likes} points</span>
-                        &middot;
-                        <span>-1 comments</span>
-                    </p>
-                    <div class="actions">
+                    <div class="post">
+                        <div>
+                            <h2>${post.title}</h2>
+                        </div>
+                        <div>
+                            <img src='${post.imgURL}'/>
+                        </div>
+                        <p class="stats">
+                            <span>${post.likes} points</span>
+                            &middot;
+                            <span>${post.likes/2} comments</span>
+                        </p>
                         <div class="actions">
-                            <ul class="votes">
-                                <li class="btn border"><span class="fa fa-arrow-up"></span></li>
-                                <li class="btn border"><span class="fa fa-arrow-down"></span></li>
-                            </ul>
-                            <ul>
-                                <li class="btn border"><span class="fa fa-comment"></span></li>
-                            </ul>
-                            <ul class="social right">
-                                <li class="btn social facebook">
-                                    <span class="fa fa-facebook">&nbsp;</span>
-                                    <span class="label">Facebook</span>
-                                </li>
-                                <li class="btn social twitter">
-                                    <span class="fa fa-twitter">&nbsp;</span>
-                                    <span class="label">Twitter</span>
-                                </li>
-                            </ul>
+                            <div class="actions">
+                                <ul class="votes">
+                                    <li class="btn border"><span class="fa fa-arrow-up"></span></li>
+                                    <li class="btn border"><span class="fa fa-arrow-down"></span></li>
+                                </ul>
+                                <ul>
+                                    <li class="btn border"><span class="fa fa-comment"></span></li>
+                                </ul>
+                                <ul class="social right">
+                                    <li class="btn social facebook">
+                                        <span class="fa fa-facebook">&nbsp;</span>
+                                        <span class="label">Facebook</span>
+                                    </li>
+                                    <li class="btn social twitter">
+                                        <span class="fa fa-twitter">&nbsp;</span>
+                                        <span class="label">Twitter</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <hr>
+                    <hr>
                 </c:forEach>
-            <div class="sidebar">
-                <div class="item">
-                    <div class="ad">
-                        <img src="./img/ad1.png"></img>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="post">
-                        <div class="image">
-                            <a>RANDOM IMAGE 1</a>
+                <div class="sidebar">
+                    <div class="item">
+                        <div class="ad">
+                            <img src="./img/ad1.png"></img>
                         </div>
-                        <h3>Random post 1</h3>
                     </div>
-                </div>
-                <div class="item">
-                    <div class="post">
-                        <div class="image">
-                            <a>RANDOM IMAGE 2</a>
+                    <div class="item">
+                        <div class="post">
+                            <div class="image">
+                                <a>RANDOM IMAGE 1</a>
+                            </div>
+                            <h3>Random post 1</h3>
                         </div>
-                        <h3>Random post 2</h3>
+                    </div>
+                    <div class="item">
+                        <div class="post">
+                            <div class="image">
+                                <a>RANDOM IMAGE 2</a>
+                            </div>
+                            <h3>Random post 2</h3>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </body>
 </html>

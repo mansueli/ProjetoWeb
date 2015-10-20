@@ -29,13 +29,13 @@ public class RedditStealer {
     public static void main(String[] args) {
         UserRepository userRepository = UserRepository.getInstance();
         PostRepository postRepository = PostRepository.getInstance();
-        String subreddit = "funny";
+        String subreddit = "gaming";
         String username = subreddit + "Guy";
         //UserEntity(String username, String email, String avatarURL, String password){
         UserEntity user = new UserEntity(username, username + "@example.com", "", "4321");
         userRepository.save(user);
         user = userRepository.findByUsername(username);
-        String jsonreturn = getJSONString("https://www.reddit.com/r/" + subreddit + "/.json?limit=75");
+        String jsonreturn = getJSONString("https://www.reddit.com/r/" + subreddit + "/.json?limit=85");
         String[] array = jsonreturn.split("\"domain\"");
         boolean first = true;
         for (String str : array) {
@@ -44,7 +44,7 @@ public class RedditStealer {
             } else {
                 //System.out.println(str);
                 String title = getField("title", str);
-                int likes = (int) (Math.random() * 100);
+                int likes = (int) (Math.random() * 60);
                 String url = getURL(str);
                 //System.out.println(title + " " + likes + " " + url);
                 String validatedURL = urlChecker(url);
