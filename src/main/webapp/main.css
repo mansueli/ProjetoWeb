@@ -189,10 +189,28 @@ ul li a {
 .btn.half {
     width: 49.3%;
 }
-
+div.stream .post h2 a{
+    color: #000;
+}
+div.stream .post h2 a:hover {
+    color: #09F;
+}
 @media (max-width: 1280px) {
     .navalt {
         visibility: hidden;
         font-size: 0px;
     }
+}
+.fb_btn IFRAME
+{
+    transform: scale(2);
+    -ms-transform: scale(2);
+    -webkit-transform: scale(2);
+    -o-transform: scale(2);
+    -moz-transform: scale(2);
+    transform-origin: bottom left;
+    -ms-transform-origin: bottom left;
+    -webkit-transform-origin: bottom left;
+    -moz-transform-origin: bottom left;
+    -webkit-transform-origin: bottom left;
 }

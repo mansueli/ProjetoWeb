@@ -7,6 +7,7 @@ import static org.torpedoquery.jpa.Torpedo.*;
 
 
 public class PostRepository extends Repository<PostEntity>{
+
     private static class PostHolder {
         public static PostRepository INSTANCE = new PostRepository();
     }
@@ -31,13 +32,7 @@ public class PostRepository extends Repository<PostEntity>{
         return result;
     }
     
-//    public List<PostEntity> getPostsbyLikes(int pageNumber){
-//        PostEntity from = from(PostEntity.class);
-//        orderBy(desc(from.getLikes()), desc(from.getId()));
-//        List<PostEntity> result = select(from).setMaxResults(30).list(em);
-//        return result;
-//    }
-    //entityManager.createQuery("yourQuery").setFirstResult(0).setMaxResults(5);
+
         public List<PostEntity> getPostsbyLikes(int pageNumber){
                String query = String.format(
                   "from %s order by likes desc",
@@ -45,5 +40,4 @@ public class PostRepository extends Repository<PostEntity>{
                 Query q = em.createQuery(query, PostEntity.class).setFirstResult(pageNumber * 30).setMaxResults(30);      
         return q.getResultList();
     }
-    
 }

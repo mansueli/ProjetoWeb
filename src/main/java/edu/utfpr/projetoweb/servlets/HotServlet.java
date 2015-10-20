@@ -8,11 +8,13 @@ package edu.utfpr.projetoweb.servlets;
 import edu.utfpr.projetoweb.entities.PostEntity;
 import edu.utfpr.projetoweb.repositories.PostRepository;
 import edu.utfpr.projetoweb.repositories.UserRepository;
+import static edu.utfpr.projetoweb.utils.ServletUtils.getIntParameterValue;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,9 +23,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Rodrigo
  */
-public class JSPTest extends HttpServlet {
-        UserRepository userRepository = UserRepository.getInstance();
-        PostRepository postRepository = PostRepository.getInstance();
+@WebServlet(name = "HotServlet", urlPatterns = {"/hot"})
+public class HotServlet extends HttpServlet {
+
+    UserRepository userRepository = UserRepository.getInstance();
+    PostRepository postRepository = PostRepository.getInstance();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,7 +42,16 @@ public class JSPTest extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            List<PostEntity> postList = postRepository.getPostsbyLikes(0);
+            List<PostEntity> postList;
+            //Checks if page parameter exists:
+
+            if (request.getParameterMap().containsKey("p")) {
+                int p = getIntParameterValue("p");
+                postList = postRepository.getPostsbyLikes(p);
+            } else {
+                 postList = postRepository.getPostsbyLikes(0);
+            }
+                            
             request.setAttribute("postList", postList);
             RequestDispatcher view = request.getRequestDispatcher("jsp/hot.jsp");
             view.forward(request, response);

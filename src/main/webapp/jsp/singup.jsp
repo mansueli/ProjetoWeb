@@ -1,10 +1,10 @@
 <%-- 
-    Document   : 404
-    Created on : Sep 22, 2015, 12:08:04 AM
+    Document   : singup
+    Created on : Oct 20, 2015, Oct 20, 2015 12:57:50 PM
     Author     : Rodrigo
 --%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="" %>
 <!DOCTYPE html>
 <html>
     <head>
