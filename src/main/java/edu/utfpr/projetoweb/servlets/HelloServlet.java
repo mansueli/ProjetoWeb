@@ -53,7 +53,7 @@ public class HelloServlet extends HttpServlet {
      */
             UserEntity user = new UserEntity("testUser", "test@example.org","","1234");
             userRepository.save(user);
-            UserEntity user2 =  userRepository.findByUsername("testUser");
+            UserEntity user2 =  userRepository.findbyUsername("testUser");
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");

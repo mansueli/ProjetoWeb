@@ -27,12 +27,12 @@ public class Repository<E> {
                   entityClass.getSimpleName());
         return em.createQuery(query, entityClass).getResultList();
     }
-    public void save(E entity){
+    public boolean save(E entity){
         em.getTransaction().begin();
         em.merge(entity);
         em.flush();
         em.getTransaction().commit();
-        
+        return true;
     }
 
     public void delete(E entity){

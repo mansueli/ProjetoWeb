@@ -24,10 +24,10 @@ public class UserEntity implements Serializable {
     @GeneratedValue
     private long id;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String username;
     
-    @Column 
+    @Column(nullable = false, unique = true) 
     private String email;
     
     @Column 

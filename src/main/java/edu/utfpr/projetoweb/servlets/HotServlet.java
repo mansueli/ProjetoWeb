@@ -46,12 +46,16 @@ public class HotServlet extends HttpServlet {
             //Checks if page parameter exists:
 
             if (request.getParameterMap().containsKey("p")) {
-                int p = getIntParameterValue("p");
+                String param = new String(request.getParameter("p"));
+                int p = getIntParameterValue(param);
+                System.out.println("\n\np ==" +p);
                 postList = postRepository.getPostsbyLikes(p);
+
+                
             } else {
                  postList = postRepository.getPostsbyLikes(0);
             }
-                            
+                System.out.println("\nDebugTitle & id == "+ postList.get(0).getTitle() + "|" + postList.get(0).getId());            
             request.setAttribute("postList", postList);
             RequestDispatcher view = request.getRequestDispatcher("jsp/hot.jsp");
             view.forward(request, response);

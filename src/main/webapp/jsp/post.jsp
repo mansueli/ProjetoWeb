@@ -42,11 +42,11 @@
                 <ul>
                     <li><a class="navalt" href="/category?c=funny">Funny</a></li>
                     <li><a class="navalt" href="/category?c=gaming">Gaming</a></li>
-                    <li><a class="navalt" href="/category?c=comic">Comic</a></li>
+                    <li><a class="navalt" href="/category?c=cosplay">Cosplay</a></li>
                     <li><a class="navalt" href="/category?c=meme">Meme</a></li>
-                    <li><a class="navalt" href="/category?c=gif">@TODO GIF</a></li>
-                    <li><a class="navalt" href="/category?c=wtf">@TODO WTF</a></li>
-                    <li><a class="navalt" href="/category?c=gaming">@TODO Geeky</a></li>
+                    <li><a class="navalt" href="/category?c=gif">GIF</a></li>
+                    <li><a class="navalt" href="/category?c=aww">AWW</a></li>
+                    <li><a class="navalt" href="/category?c=comic">Comic</a></li>
                 </ul>
             </div>
             <div class="menuRight">

@@ -6,12 +6,12 @@
 package edu.utfpr.projetoweb.entities;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -21,17 +21,30 @@ import org.hibernate.annotations.CascadeType;
  */
 @Entity
 public class PostEntity implements Serializable {
+
     @Id
     @GeneratedValue
     private long id;
-    
+
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "userId", referencedColumnName = "id")
     @Cascade({CascadeType.SAVE_UPDATE})
     private UserEntity user;
 
+    @Column(name = "title", nullable = false)
+    private String title;
+
+    @Column(name = "imgurl", nullable = false, unique = true)
+    private String imgURL;
+
+    @Column
+    private long likes;
+
+    @Column(name = "category", nullable = false)
+    private String category;
+
     public PostEntity() {
-        
+
     }
 
     public PostEntity(UserEntity user, String title, String imgURL, long likes, String category) {
@@ -41,24 +54,13 @@ public class PostEntity implements Serializable {
         this.likes = likes;
         this.category = category;
     }
-    public PostEntity(UserEntity user, String title, String imgURL,  String category) {
+
+    public PostEntity(UserEntity user, String title, String imgURL, String category) {
         this.user = user;
         this.title = title;
         this.imgURL = imgURL;
         this.category = category;
     }
-    
-    @Column
-    private String title;
-    
-    @Column
-    private String imgURL;
-    
-    @Column 
-    private long likes;
-    
-    @Column
-    private String category;
 
     public long getId() {
         return id;
@@ -67,7 +69,6 @@ public class PostEntity implements Serializable {
     public UserEntity getUser() {
         return user;
     }
-
 
     public String getTitle() {
         return title;
@@ -100,5 +101,5 @@ public class PostEntity implements Serializable {
     public void setCategory(String category) {
         this.category = category;
     }
-    
+
 }
