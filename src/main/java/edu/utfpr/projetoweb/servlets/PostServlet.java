@@ -8,11 +8,9 @@ package edu.utfpr.projetoweb.servlets;
 import edu.utfpr.projetoweb.entities.PostEntity;
 import edu.utfpr.projetoweb.repositories.PostRepository;
 import edu.utfpr.projetoweb.repositories.UserRepository;
+import edu.utfpr.projetoweb.utils.ServletUtils;
 import static edu.utfpr.projetoweb.utils.ServletUtils.getIntParameterValue;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.NumberFormat;
-import java.text.ParsePosition;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,14 +42,18 @@ public class PostServlet extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
+        
         int id = getIntParameterValue(new String(request.getParameter("p")));
         if(id!=-1){
             PostEntity post = postRepository.find(id);
+            String url = ServletUtils.getCompleteURL(request);
             request.setAttribute("post", post);
+            request.setAttribute("url", url);
             System.out.println("Post.title:"+ post.getTitle());
             RequestDispatcher view = request.getRequestDispatcher("jsp/post.jsp");
             view.forward(request, response);
         }
+       response.sendRedirect("404");
     }
 
     /**
@@ -77,7 +79,7 @@ public class PostServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 
 }

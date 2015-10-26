@@ -7,8 +7,8 @@
         <style>
             body{
                 margin:0;
-                background-color:#ddd;
-                color:#222;
+                background-color:#222;
+                color:#fff;
                 font:11px "Helvetica Neue",Helvetica,Arial,sans-serif;
                 min-width:1080px;padding-top:50px
             }
@@ -26,9 +26,6 @@
             a img{
                 border:0
             }
-            body#page-404{
-                background-color:#222;color:#fff
-            }
             .message-page{
                 position:absolute;
                 text-align:center;
@@ -39,26 +36,13 @@
                 top:50%;
                 margin:-180px 0 0 -240px
             }
-            .message-page h3{
+            .message-page h1{
                 font-size:50px;
                 text-transform:uppercase;
                 margin:0 0 10px
             }
-            .message-page h3.message-404 a{
-                background:url(img/404.png) 0 0 no-repeat;
-                width:246px;
-                height:310px;
-                margin:0 auto 10px;
-                display:block;
-                text-indent:-9999px;overflow:hidden}
-            .message-page h3.message-404 a:hover{
-                background:url(img/404b.png) 0 0 no-repeat
-            }
-            .message-page h3.message-404 a:active{
-                background:url(img/404b.png) 0 0 no-repeat
-            }
             .message-page p{
-                margin:0 0 5px;font-size:12px;color:#999
+                margin:0 0 5px;font-size:18px;color:#999
             }
             .message-page a{
                 color:#fff
@@ -66,12 +50,11 @@
         </style>
     </head>
 
-    <body id="page-404">
+    <body>
         <div class="message-page">
-            <h3 class="message-404"><a href="/hot">Four-Oh!-Four</a></h3>
-            <p>Sorry, the page you're looking for doesn't exist.</p>
+            <h1 class="message-h1"><a href="/hot">Error</a></h1>
+            <p>${error}</p>
             <p>Go back to <a href="/hot">IF68B</a></p>
-
         </div>
     </body>
 </html>

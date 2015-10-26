@@ -5,6 +5,12 @@
  */
 package edu.utfpr.projetoweb.utils;
 
+import java.io.IOException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author Rodrigo
@@ -37,4 +43,20 @@ public class ServletUtils {
         }
         return true;
     }
+
+
+    public static String getCompleteURL(HttpServletRequest request) {
+        StringBuffer requestURL = request.getRequestURL();
+        if (request.getQueryString() != null) {
+            requestURL.append("?").append(request.getQueryString());
+        }
+        String completeURL = requestURL.toString();
+        return completeURL;
+    }
+    public static void printError(HttpServletRequest request, HttpServletResponse response, String error) throws ServletException, IOException{
+        request.setAttribute("error", error);
+        RequestDispatcher view = request.getRequestDispatcher("jsp/erro.jsp");
+        view.forward(request, response);
+    }
+
 }

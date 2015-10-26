@@ -44,7 +44,6 @@
                     <li><a class="navalt" href="/category?c=gaming">Gaming</a></li>
                     <li><a class="navalt" href="/category?c=cosplay">Cosplay</a></li>
                     <li><a class="navalt" href="/category?c=meme">Meme</a></li>
-                    <li><a class="navalt" href="/category?c=gif">GIF</a></li>
                     <li><a class="navalt" href="/category?c=aww">AWW</a></li>
                     <li><a class="navalt" href="/category?c=comic">Comic</a></li>
                 </ul>
@@ -63,7 +62,7 @@
                         <p>
                             <span>${post.likes} points</span>
                             &middot;
-                            <span>48 comments</span>
+                            <span>Comments</span>
                         </p>
                     </div>
 
@@ -77,7 +76,7 @@
                                 <li class="btn border"><span class="fa fa-comment"></span></li>
                             </ul>
                             <ul class="social">
-                                <li class="btn social facebook"><div class="fb-share-button" data-href="http://localhost:8084/gag/${post.id}" data-layout="icon"></div></li>
+                                <li class="btn social facebook"><div class="fb-share-button" data-href="${url}" data-layout="icon"></div></li>
                                 <li class="btn social twitter"><span class="fa fa-twitter">&nbsp;</span>Twitter</li>
                             </ul>
                             <ul>
@@ -102,15 +101,15 @@
 
                     <div class="actions">
                         <ul class="social">
-                            <li><div class="btn half left social facebook fb-share-button fb_btn" data-href="http://localhost:8084/gag/${post.id}" data-layout="button"></div></li>
-<!--                            <li class="btn half left social facebook fb-share-button fb_btn" data-href="http://localhost:8084/gag/${post.id}" data-layout="button">Share on Facebook</li>-->
+                            <li><div class="btn half left social facebook fb-share-button fb_btn" data-href="${url}" data-layout="button"></div></li>
+<!--                            <li class="btn half left social facebook fb-share-button fb_btn" data-href="${url}" data-layout="button">Share on Facebook</li>-->
                             <li class="btn half right social twitter">Share on Twitter</li>
                         </ul>
                     </div>
 
                     <hr>
                     <a href="mailto:example@example.org">REPORT</a>
-                    <div class="fb-comments" data-href="http://localhost:8084/post/34" data-width="600" data-numposts="7"></div>
+                    <div class="fb-comments" data-href="${url}" data-width="600" data-numposts="7"></div>
                 </div>
             </div>
 

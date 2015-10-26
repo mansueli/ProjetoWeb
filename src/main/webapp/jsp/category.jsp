@@ -99,12 +99,6 @@
                                     <li class="btn border"><span class="fa fa-comment"></span></li>
                                 </ul>
                                 <ul class="social right">
-<!--                                 <li class="btn social facebook">
-                                        <div class="fb-share-button" 
-                                             data-href="http://localhost:8084/gag?p=${post.id}" 
-                                             data-layout=""><span class="fa fa-facebook">&nbsp;</span>
-                                            <span class="label">Facebook</span></div>
-                                 </li>-->
                                     <li>
                                         <div class="fb_btn" 
                                              data-href="http://localhost:8084/gag?p=${post.id}" 

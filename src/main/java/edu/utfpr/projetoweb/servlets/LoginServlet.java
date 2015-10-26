@@ -9,10 +9,9 @@ import edu.utfpr.projetoweb.entities.UserEntity;
 import edu.utfpr.projetoweb.repositories.PostRepository;
 import edu.utfpr.projetoweb.repositories.UserRepository;
 import edu.utfpr.projetoweb.utils.Encryption;
+import static edu.utfpr.projetoweb.utils.ServletUtils.printError;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.security.NoSuchAlgorithmException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 /**
  *
@@ -71,22 +69,23 @@ public class LoginServlet extends HttpServlet {
                 int salt = user.getSalt();
                 try {
                     if (user.getPasswordHash().equals(Encryption.getUserHash(password, salt))) {
-                        Cookie sessionCookie = new Cookie("sessionID", session.getId().toString());
+                        Cookie sessionCookie = new Cookie("sessionID", session.getId());
                         session.setAttribute("username", user.getUsername());
                         session.setAttribute("avatar", user.getAvatarURL());
                         session.setAttribute("logged", "true");
+                        session.setAttribute("userID", user.getId());
                         response.addCookie(sessionCookie);
                         session.setMaxInactiveInterval(WEEK_SECONDS);
                         response.sendRedirect("hot");
                     } else {
-                        imprimeErro(response);
+                        printError(request,response,"Wrong login");
                     }
-                } catch (Exception e) {
-                    imprimeErro(response);
+                } catch (NoSuchAlgorithmException | IOException | ServletException e) {
+                    printError(request,response,"Wrong login");
                 }
             }
-        } catch (Exception e) {
-            imprimeErro(response);
+        } catch (ServletException | IOException e) {
+            printError(request,response,"Something went wrong. Does this username exists?");
         }
     }
 
@@ -98,23 +97,6 @@ public class LoginServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
-
-    public void imprimeErro(HttpServletResponse response) {
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Error, you are lame and entered a wrong login!</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Error, you are lame and entered a wrong login!</h2>");
-            out.println("</body>");
-            out.println("</html>");
-        } catch (IOException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
 
 }

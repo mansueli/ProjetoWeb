@@ -5,8 +5,12 @@
  */
 package edu.utfpr.projetoweb.servlets;
 
+import edu.utfpr.projetoweb.entities.UserEntity;
+import edu.utfpr.projetoweb.repositories.PostRepository;
+import edu.utfpr.projetoweb.repositories.UserRepository;
+import static edu.utfpr.projetoweb.utils.ServletUtils.printError;
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,33 +24,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SingupServlet", urlPatterns = {"/singup"})
 public class SingupServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SingupServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SingupServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+    UserRepository userRepository = UserRepository.getInstance();
+    PostRepository postRepository = PostRepository.getInstance();
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -58,7 +38,9 @@ public class SingupServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        RequestDispatcher view = request.getRequestDispatcher("jsp/singup.jsp");
+        view.forward(request, response);
     }
 
     /**
@@ -72,17 +54,27 @@ public class SingupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        String username = request.getParameter("username");
+        String email = request.getParameter("usermail");
+        String cemail = request.getParameter("usermail_confirm");
+        String password = request.getParameter("password");
+        if (!email.equals(cemail)) {
+            printError(request, response, "E-mails must be equals to the confirm field. Duh!");
+        }
+        UserEntity user = userRepository.findbyEmail(email);
+        if (user != null) {
+            printError(request, response, "This e-mail is already being used!");
+        } else {
+            user = userRepository.findbyUsername(username);
+            if (user != null) {
+                printError(request, response, "This username already exists. Sorry, try again!");
+            } else {
+                user = new UserEntity(username, email, "", password);
+                userRepository.save(user);
+                response.sendRedirect("login");
+            }
+        }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    }
 
 }

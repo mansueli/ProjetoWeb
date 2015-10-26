@@ -8,12 +8,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <% boolean logged = session==null; %>
-        <title>IF68B - 9GAG clone ${logged? "" : session.getAttribute("username") }</title>
+        <title>IF68B - 9GAG clone</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="font-awesome-4.4.0/css/font-awesome.min.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="content.css">
-        <link media="screen,projection" type="text/css" rel="stylesheet" href="menu.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="main.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="post.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="sidebar.css">
@@ -24,30 +22,30 @@
         <script>
             // Facebook JS SDK
             window.fbAsyncInit = function () {
-            FB.init({
-            appId: '611311742344814',
+                FB.init({
+                    appId: '611311742344814',
                     xfbml: true,
                     status: true,
                     version: 'v2.5'
-            });
+                });
             };
             (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-            return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
             //Share code
             FB.ui({
-            method: 'share',
-                    href: 'https://developers.facebook.com/docs/',
+                method: 'share',
+                href: 'https://developers.facebook.com/docs/',
             }, function (response) {});
-            function search(){
-                 window.location.href = "/search";
+            function search() {
+                window.location.href = "/search";
             }
         </script>  
         <div class="menu">
@@ -63,25 +61,29 @@
                     <li><a class="navalt" href="/category?c=gaming">Gaming</a></li>
                     <li><a class="navalt" href="/category?c=cosplay">Cosplay</a></li>
                     <li><a class="navalt" href="/category?c=meme">Meme</a></li>
-                    <li><a class="navalt" href="/category?c=gif">GIF</a></li>
                     <li><a class="navalt" href="/category?c=aww">AWW</a></li>
                     <li><a class="navalt" href="/category?c=comic">Comic</a></li>
                 </ul>
             </div>
             <div class="menuRight">
-                <form action="${session!=null?  "submit" : "singup"}">
-                    <div class="function">
+                <div class="function">
+                <c:choose>
+                    <c:when test="${logged}">
                         <div class="search rightitem" onclick="search();"><a href="/search">Search</a></div>
-                        <li><a class="navalt button btn rightitem" href="${logged? "userMain" : "login"}">${session!=null? session.getAttribute("username") : "Log in"}</a>" 
-                        </li>
-                        ${logged? "<li><a class=\"navalt button btn rightitem\" href=\"logout\">Log out</a></li>" : ""}
-                        <li>
-                            <a class="navalt button btn rightitem" href="${logged? "send" : "singup"}">${logged? "send" : "singup"}</a>
-                        </li>
-                    </div>
+                            <a class="navalt rightitem" href="userMain">${session.getAttribute("username")}</a> 
+                            <a class="navalt button btn rightitem" href="logout">Log out</a></li>
+                            <a class="navalt button btn rightitem" href="singup">+ Upload</a> 
+                    </c:when>    
+                    <c:otherwise>
+                        <div class="search rightitem" onclick="search();"><a href="/search">Search</a></div>
+                            <a class="navalt button btn rightitem" href="login">Log in</a> 
+                            <a class="navalt button btn rightitem" href="singup">Sing up</a>
+                    </c:otherwise>
+                </c:choose>
+                </div>
             </div>
-        </div>
-        <div class="content">
+
+<div class="content">
             <div class="stream">
                 <c:forEach var="post" items="${postList}">
                     <div class="post">
@@ -94,7 +96,7 @@
                         <p class="stats">
                             <span>${post.likes} points</span>
                             &middot;
-                            <span><a href="/gag/${post.id}"> comments</a></span>
+                            <span><a href="/gag?p=${post.id}"> comments</a></span>
                         </p>
                         <div class="actions">
                             <div class="actions">
@@ -114,7 +116,7 @@
                                                                      </li>-->
                                     <li>
                                         <div class="fb_btn" 
-                                             data-href="http://localhost:8084/gag?p=${post.id}" 
+                                             data-href="/gag?p=${post.id}" 
                                              data-layout="icon">
                                         </div>
                                     </li>
