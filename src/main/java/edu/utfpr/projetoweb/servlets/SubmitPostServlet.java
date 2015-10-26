@@ -9,42 +9,28 @@ import edu.utfpr.projetoweb.entities.PostEntity;
 import edu.utfpr.projetoweb.entities.UserEntity;
 import edu.utfpr.projetoweb.repositories.PostRepository;
 import edu.utfpr.projetoweb.repositories.UserRepository;
-import java.awt.image.BufferedImage;
-import java.io.File;
+import static edu.utfpr.projetoweb.utils.ServletUtils.printError;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 /**
  *
  * @author Rodrigo
  */
-@WebServlet(name = "SubmitPostServlet", urlPatterns = {"/upload"})
+@WebServlet(name = "SubmitPostServlet", urlPatterns = {"/submit"})
 public class SubmitPostServlet extends HttpServlet {
 
     private UserRepository userRepository = UserRepository.getInstance();
     private PostRepository postRepository = PostRepository.getInstance();
-    private File folderPath = null;
-    private long imgID = 0;
-
-    @Override
-    public void init() throws ServletException {
-        folderPath = new File(getServletContext().getInitParameter("img.dir"));
-        File[] folder = folderPath.listFiles();
-        for (File f : folder) {
-            imgID++;
-        }
-    }
+    private final String[] categoryList = {"funny", "meme", "gaming", "cosplay", "aww", "comic"};
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -57,7 +43,9 @@ public class SubmitPostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        RequestDispatcher view = request.getRequestDispatcher("jsp/submit.jsp");
+        view.forward(request, response);
     }
 
     /**
@@ -72,24 +60,28 @@ public class SubmitPostServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
+        boolean isValidCategory = false;
         if (session != null) {
-            request.setAttribute("session", session);
-            String title = request.getParameter("title");
             String category = request.getParameter("category");
-            Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-            String fileName = filePart.getSubmittedFileName();
-            try (InputStream input = filePart.getInputStream()) {
-                try {
-                    BufferedImage img = ImageIO.read(input);
-                    File file = new File(folderPath.getAbsoluteFile() + "/" + imgID + ".png");
-                    ImageIO.write(img, "png", file);
-                    UserEntity user = userRepository.findbyUsername((String) session.getAttribute("username"));
-                    //public PostEntity(UserEntity user, String title, String imgURL, String category)
-                    PostEntity post = new PostEntity(user, title, "/posts/img/" + imgID + ".png", category);
-                } catch (Exception e) {
-                    imprimeErro(response);
+            if (isValidCategory(category)) {
+                String title = request.getParameter("title");
+                String url = request.getParameter("url");
+                UserEntity user = userRepository.findbyUsername((String) session.getAttribute("username"));
+                String regex = "http(s?)://([\\w-]+\\.)+[\\w-]+(/[\\w- ./]*)+\\.(?:[gG][iI][fF]|[jJ][pP][gG]|[jJ][pP][eE][gG]|[pP][nN][gG]|[bB][mM][pP])";
+                Matcher m = Pattern.compile(regex).matcher(url);
+                if(m.find()){
+                    PostEntity post = new PostEntity(user, title, url, category);
+                    postRepository.save(post);
+                    post = postRepository.findbyImgURL(url);
+                    response.sendRedirect("gag?p=" + post.getId());
+                }else{
+                    printError(request, response, "Invalid Image URL.");
                 }
+            } else {
+                printError(request, response, "You cannot create your own category.");
             }
+        } else {
+            printError(request, response, "You cannot send a post without being logged in.");
         }
 
     }
@@ -103,20 +95,13 @@ public class SubmitPostServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
-    public void imprimeErro(HttpServletResponse response) {
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Error, you are lame and entered a wrong login!</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Error, you are lame and you cannot post this s#*t!</h2>");
-            out.println("</body>");
-            out.println("</html>");
-        } catch (IOException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
+    private boolean isValidCategory(String category) {
+        for (String c : categoryList) {
+            if (category.equals(c)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

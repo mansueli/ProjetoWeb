@@ -1,6 +1,7 @@
 package edu.utfpr.projetoweb.repositories;
 
 import edu.utfpr.projetoweb.entities.PostEntity;
+import edu.utfpr.projetoweb.entities.UserEntity;
 import java.util.List;
 import javax.persistence.Query;
 import static org.torpedoquery.jpa.Torpedo.*;
@@ -52,12 +53,22 @@ public class PostRepository extends Repository<PostEntity> {
         return q.getResultList();
     }
 
+    public List<PostEntity> getPostsbyUser(UserEntity user) {
+        String query = String.format(
+                "from %s where userid=%d order by likes desc",
+                PostEntity.class.getSimpleName(),
+                user.getId());
+        Query q = em.createQuery(query, PostEntity.class);
+        return q.getResultList();
+    }
+
     public PostEntity findbyImgURL(String imgURL) {
         PostEntity from = from(PostEntity.class);
         where(from.getImgURL()).eq(imgURL);
         List<PostEntity> result = select(from).list(em);
-        if(result.isEmpty())
+        if (result.isEmpty()) {
             return null;
+        }
         return result.get(0);
     }
 
@@ -75,8 +86,8 @@ public class PostRepository extends Repository<PostEntity> {
             return true;
         }
     }
-    
-    public List<PostEntity> getPostsbyCategory(String category,int pageNumber) {
+
+    public List<PostEntity> getPostsbyCategory(String category, int pageNumber) {
         //select id,category,title from postentity where category='funny'
         String query = String.format(
                 "FROM %s WHERE category like \'%s\' order by likes desc",

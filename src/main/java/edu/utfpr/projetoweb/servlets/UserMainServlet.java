@@ -5,13 +5,20 @@
  */
 package edu.utfpr.projetoweb.servlets;
 
+import edu.utfpr.projetoweb.entities.PostEntity;
+import edu.utfpr.projetoweb.entities.UserEntity;
+import edu.utfpr.projetoweb.repositories.PostRepository;
+import edu.utfpr.projetoweb.repositories.UserRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -19,7 +26,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "UserMainServlet", urlPatterns = {"/userMain"})
 public class UserMainServlet extends HttpServlet {
-
+    UserRepository userRepository = UserRepository.getInstance();
+    PostRepository postRepository = PostRepository.getInstance();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,17 +40,15 @@ public class UserMainServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UserMainServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UserMainServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        HttpSession session = request.getSession(false);
+        if(session!=null){
+            String username = (String) session.getAttribute("username");
+            UserEntity user = userRepository.findbyUsername(username);
+            List<PostEntity> postList = postRepository.getPostsbyUser(user);
+            request.setAttribute("postList", postList);
+            request.setAttribute("category", "");
+            RequestDispatcher view = request.getRequestDispatcher("jsp/category.jsp");
+            view.forward(request, response);
         }
     }
 

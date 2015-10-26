@@ -2,6 +2,7 @@ div.content {
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
+    padding-top: 40px;
     width: 940px;
 }
 
@@ -72,4 +73,11 @@ hr {
     border: 0;
     border-top: 1px solid #EEE;
     margin-bottom: 20px;
+}
+
+.actions ul li.next {
+    margin-right: 0px;
+}
+ul li.facebook a{
+    color: #FFF;
 }

@@ -10,7 +10,6 @@ import edu.utfpr.projetoweb.repositories.PostRepository;
 import edu.utfpr.projetoweb.repositories.UserRepository;
 import static edu.utfpr.projetoweb.utils.ServletUtils.getIntParameterValue;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -57,17 +56,21 @@ public class HotServlet extends HttpServlet {
         }
         System.out.println("\nDebugTitle & id == " + postList.get(0).getTitle() + "|" + postList.get(0).getId());
         request.setAttribute("postList", postList);
-        Cookie[] cookies = request.getCookies();
-        for(Cookie cookie : cookies){
-            if(cookie!=null){
-                if(cookie.getName().equals("sessionID")){
-                    request.setAttribute("sessionID", cookie.getValue());
-                    HttpSession session = request.getSession(false);
-                    if(session!=null){
-                        request.setAttribute("session", session);
+        try {
+            Cookie[] cookies = request.getCookies();
+            for (Cookie cookie : cookies) {
+                if (cookie != null) {
+                    if (cookie.getName().equals("sessionID")) {
+                        request.setAttribute("sessionID", cookie.getValue());
+                        HttpSession session = request.getSession(false);
+                        if (session != null) {
+                            request.setAttribute("session", session);
+                        }
                     }
                 }
             }
+        } catch (Exception e) {
+
         }
         RequestDispatcher view = request.getRequestDispatcher("jsp/hot.jsp");
         view.forward(request, response);

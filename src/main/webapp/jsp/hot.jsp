@@ -67,69 +67,70 @@
             </div>
             <div class="menuRight">
                 <div class="function">
-                <c:choose>
-                    <c:when test="${logged}">
-                        <div class="search rightitem" onclick="search();"><a href="/search">Search</a></div>
+                    <c:choose>
+                        <c:when test="${logged}">
+                            <div class="search rightitem" onclick="search();"><a href="/search">Search</a></div>
                             <a class="navalt rightitem" href="userMain">${session.getAttribute("username")}</a> 
-                            <a class="navalt button btn rightitem" href="logout">Log out</a></li>
-                            <a class="navalt button btn rightitem" href="singup">+ Upload</a> 
-                    </c:when>    
-                    <c:otherwise>
-                        <div class="search rightitem" onclick="search();"><a href="/search">Search</a></div>
-                            <a class="navalt button btn rightitem" href="login">Log in</a> 
-                            <a class="navalt button btn rightitem" href="singup">Sing up</a>
-                    </c:otherwise>
-                </c:choose>
+                            <a class="navalt button btn rightitem" href="/logout">Log out</a></li>
+                            <a class="navalt button btn rightitem" href="/submit">+ Submit</a> 
+                        </c:when>    
+                        <c:otherwise>
+                            <div class="search rightitem" onclick="search();"><a href="/search">Search</a></div>
+                            <a class="navalt button btn rightitem" href="/login">Log in</a> 
+                            <a class="navalt button btn rightitem" href="/singup">Sing up</a>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
 
-<div class="content">
-            <div class="stream">
-                <c:forEach var="post" items="${postList}">
-                    <div class="post">
-                        <div>
-                            <h2><a href="/gag?p=${post.id}">  ${post.title} </a></h2>
-                        </div>
-                        <div>
-                            <img src='${post.imgURL}'/>
-                        </div>
-                        <p class="stats">
-                            <span>${post.likes} points</span>
-                            &middot;
-                            <span><a href="/gag?p=${post.id}"> comments</a></span>
-                        </p>
-                        <div class="actions">
+            <div class="content">
+                <div class="stream">
+                    <c:forEach var="post" items="${postList}">
+                        <div class="post">
+                            <div>
+                                <h2><a href="/gag?p=${post.id}">  ${post.title} </a></h2>
+                            </div>
+                            <div>
+                                <img src='${post.imgURL}'/>
+                            </div>
+                            <p class="stats">
+                                <span>${post.likes} points</span>
+                                &middot;
+                                <span><a href="/gag?p=${post.id}"> comments</a></span>
+                            </p>
                             <div class="actions">
-                                <ul class="votes">
-                                    <li class="btn border"><span class="fa fa-arrow-up"></span></li>
-                                    <li class="btn border"><span class="fa fa-arrow-down"></span></li>
-                                </ul>
-                                <ul>
-                                    <li class="btn border"><span class="fa fa-comment"></span></li>
-                                </ul>
-                                <ul class="social right">
-                                    <!--                                 <li class="btn social facebook">
-                                                                            <div class="fb-share-button" 
-                                                                                 data-href="http://localhost:8084/gag?p=${post.id}" 
-                                                                                 data-layout=""><span class="fa fa-facebook">&nbsp;</span>
-                                                                                <span class="label">Facebook</span></div>
-                                                                     </li>-->
-                                    <li>
-                                        <div class="fb_btn" 
-                                             data-href="/gag?p=${post.id}" 
-                                             data-layout="icon">
-                                        </div>
-                                    </li>
-                                    <li class="btn social twitter">
-                                        <span class="fa fa-twitter">&nbsp;</span>
-                                        <span class="label">Twitter</span>
-                                    </li>
-                                </ul>
+                                <div class="actions">
+                                    <ul class="votes">
+                                        <li class="btn border"><span class="fa fa-arrow-up"></span></li>
+                                        <li class="btn border"><span class="fa fa-arrow-down"></span></li>
+                                    </ul>
+                                    <ul>
+                                        <li class="btn border"><span class="fa fa-comment"></span></li>
+                                    </ul>
+                                    <ul class="social right">
+                                        <!--                                 <li class="btn social facebook">
+                                                                                <div class="fb-share-button" 
+                                                                                     data-href="http://localhost:8084/gag?p=${post.id}" 
+                                                                                     data-layout=""><span class="fa fa-facebook">&nbsp;</span>
+                                                                                    <span class="label">Facebook</span></div>
+                                                                         </li>-->
+                                        <li>
+                                            <div class="fb_btn" 
+                                                 data-href="/gag?p=${post.id}" 
+                                                 data-layout="icon">
+                                            </div>
+                                        </li>
+                                        <li class="btn social twitter">
+                                            <span class="fa fa-twitter">&nbsp;</span>
+                                            <span class="label">Twitter</span>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                </c:forEach>
+                        <hr>
+                    </c:forEach>
+                </div>
                 <div class="sidebar">
                     <div class="item">
                         <div class="ad">
@@ -153,6 +154,5 @@
                         </div>
                     </div>
                 </div>
-            </div>
-    </body>
-</html>
+                </body>
+                </html>

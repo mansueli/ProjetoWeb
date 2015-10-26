@@ -6,10 +6,12 @@
 package edu.utfpr.projetoweb.servlets;
 
 import edu.utfpr.projetoweb.entities.PostEntity;
+import edu.utfpr.projetoweb.entities.UserEntity;
 import edu.utfpr.projetoweb.repositories.PostRepository;
 import edu.utfpr.projetoweb.repositories.UserRepository;
 import edu.utfpr.projetoweb.utils.ServletUtils;
 import static edu.utfpr.projetoweb.utils.ServletUtils.getIntParameterValue;
+import static edu.utfpr.projetoweb.utils.ServletUtils.printError;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -53,7 +56,7 @@ public class PostServlet extends HttpServlet {
             RequestDispatcher view = request.getRequestDispatcher("jsp/post.jsp");
             view.forward(request, response);
         }
-       response.sendRedirect("404");
+       response.sendRedirect("/404.html");
     }
 
     /**
@@ -67,8 +70,20 @@ public class PostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        System.out.println("not supported");
+        HttpSession session = request.getSession(false);
+        if(session!=null){
+            int id = (int) request.getAttribute("postID");
+            PostEntity post = postRepository.find(id);
+            UserEntity user = userRepository.findbyUsername((String) session.getAttribute("username"));
+            if(post.getUser().equals(user)){
+                postRepository.delete(post);
+            }
+            else{
+                printError(request,response, "You are not allowed to perform this operation.");
+            }
+        }else{
+            printError(request,response, "You cannot delete if you are not logged in.");
+        }
     }
 
     /**
