@@ -5,31 +5,20 @@
  */
 package edu.utfpr.projetoweb.servlets;
 
-import edu.utfpr.projetoweb.entities.PostEntity;
-import edu.utfpr.projetoweb.repositories.PostRepository;
-import edu.utfpr.projetoweb.repositories.UserRepository;
-import static edu.utfpr.projetoweb.utils.ServletUtils.getIntParameterValue;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Rodrigo
  */
-@WebServlet(name = "HotServlet", urlPatterns = {"/hot"})
-public class HotServlet extends HttpServlet {
-
-    UserRepository userRepository = UserRepository.getInstance();
-    PostRepository postRepository = PostRepository.getInstance();
+@WebServlet(name = "SingupServlet", urlPatterns = {"/singup"})
+public class SingupServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,35 +32,18 @@ public class HotServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        List<PostEntity> postList;
-        //Checks if page parameter exists:
-
-        if (request.getParameterMap().containsKey("p")) {
-            String param = new String(request.getParameter("p"));
-            int p = getIntParameterValue(param);
-            System.out.println("\n\np ==" + p);
-            postList = postRepository.getPostsbyLikes(p);
-
-        } else {
-            postList = postRepository.getPostsbyLikes(0);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet SingupServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet SingupServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        System.out.println("\nDebugTitle & id == " + postList.get(0).getTitle() + "|" + postList.get(0).getId());
-        request.setAttribute("postList", postList);
-        Cookie[] cookies = request.getCookies();
-        for(Cookie cookie : cookies){
-            if(cookie!=null){
-                if(cookie.getName().equals("sessionID")){
-                    request.setAttribute("sessionID", cookie.getValue());
-                    HttpSession session = request.getSession(false);
-                    if(session!=null){
-                        request.setAttribute("session", session);
-                    }
-                }
-            }
-        }
-        RequestDispatcher view = request.getRequestDispatcher("jsp/hot.jsp");
-        view.forward(request, response);
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

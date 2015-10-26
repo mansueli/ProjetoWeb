@@ -8,7 +8,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>IF68B - 9GAG clone</title>
+        <% boolean logged = session==null; %>
+        <title>IF68B - 9GAG clone ${logged? "" : session.getAttribute("username") }</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="font-awesome-4.4.0/css/font-awesome.min.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="content.css">
@@ -23,29 +24,31 @@
         <script>
             // Facebook JS SDK
             window.fbAsyncInit = function () {
-                FB.init({
-                    appId: '611311742344814',
+            FB.init({
+            appId: '611311742344814',
                     xfbml: true,
                     status: true,
                     version: 'v2.5'
-                });
+            });
             };
-
             (function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) {
-                    return;
-                }
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "//connect.facebook.net/en_US/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+            return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
             //Share code
             FB.ui({
-                method: 'share',
-                href: 'https://developers.facebook.com/docs/',
+            method: 'share',
+                    href: 'https://developers.facebook.com/docs/',
             }, function (response) {});
+            function search(){
+                 window.location.href = "/search";
+            }
         </script>  
         <div class="menu">
             <div class="menuLeft">
@@ -66,11 +69,16 @@
                 </ul>
             </div>
             <div class="menuRight">
-                <div class="function">
-                    <div class="search rightitem"><a href="/search">Search</a></div>
-                    <a class="navalt rightitem" href="/login">Log in</a>
-                    <button class="btn rightitem" type="button">Sign up</button>
-                </div>
+                <form action="${session!=null?  "submit" : "singup"}">
+                    <div class="function">
+                        <div class="search rightitem" onclick="search();"><a href="/search">Search</a></div>
+                        <li><a class="navalt button btn rightitem" href="${logged? "userMain" : "login"}">${session!=null? session.getAttribute("username") : "Log in"}</a>" 
+                        </li>
+                        ${logged? "<li><a class=\"navalt button btn rightitem\" href=\"logout\">Log out</a></li>" : ""}
+                        <li>
+                            <a class="navalt button btn rightitem" href="${logged? "send" : "singup"}">${logged? "send" : "singup"}</a>
+                        </li>
+                    </div>
             </div>
         </div>
         <div class="content">
@@ -86,7 +94,7 @@
                         <p class="stats">
                             <span>${post.likes} points</span>
                             &middot;
-                            <span><a href="/gag/${post.id}">${post.id}${post.likes/2} comments</a>></span>
+                            <span><a href="/gag/${post.id}"> comments</a></span>
                         </p>
                         <div class="actions">
                             <div class="actions">
@@ -98,12 +106,12 @@
                                     <li class="btn border"><span class="fa fa-comment"></span></li>
                                 </ul>
                                 <ul class="social right">
-<!--                                 <li class="btn social facebook">
-                                        <div class="fb-share-button" 
-                                             data-href="http://localhost:8084/gag?p=${post.id}" 
-                                             data-layout=""><span class="fa fa-facebook">&nbsp;</span>
-                                            <span class="label">Facebook</span></div>
-                                 </li>-->
+                                    <!--                                 <li class="btn social facebook">
+                                                                            <div class="fb-share-button" 
+                                                                                 data-href="http://localhost:8084/gag?p=${post.id}" 
+                                                                                 data-layout=""><span class="fa fa-facebook">&nbsp;</span>
+                                                                                <span class="label">Facebook</span></div>
+                                                                     </li>-->
                                     <li>
                                         <div class="fb_btn" 
                                              data-href="http://localhost:8084/gag?p=${post.id}" 
