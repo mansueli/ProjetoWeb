@@ -88,7 +88,7 @@
                             <input type="password" name="password" placeholder="password" required>
                         </li>
                         <li>
-                            <input type="submit" value="Login"></li>
+                            <input type="submit" value="login"></li>
                     </ul>
                 </form>
             </section>

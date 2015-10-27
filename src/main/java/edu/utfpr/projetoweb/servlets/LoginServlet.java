@@ -80,11 +80,11 @@ public class LoginServlet extends HttpServlet {
                     } else {
                         printError(request,response,"Wrong login");
                     }
-                } catch (NoSuchAlgorithmException | IOException | ServletException e) {
+                } catch (Exception e) {
                     printError(request,response,"Wrong login");
                 }
             }
-        } catch (ServletException | IOException e) {
+        } catch (Exception e) {
             printError(request,response,"Something went wrong. Does this username exists?");
         }
     }

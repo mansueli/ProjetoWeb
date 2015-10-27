@@ -47,6 +47,9 @@
             function search() {
                 window.location.href = "/search";
             }
+            function shareFacebook(postid) {
+                window.location.href = "https://www.facebook.com/sharer/sharer.php?app_id=611311742344814&sdk=joey&u=http://localhost:8085/gag?p=" + postid;
+            }
         </script>  
         <div class="menu">
             <div class="menuLeft">
@@ -108,17 +111,9 @@
                                         <li class="btn border"><span class="fa fa-comment"></span></li>
                                     </ul>
                                     <ul class="social right">
-                                        <!--                                 <li class="btn social facebook">
-                                                                                <div class="fb-share-button" 
-                                                                                     data-href="http://localhost:8084/gag?p=${post.id}" 
-                                                                                     data-layout=""><span class="fa fa-facebook">&nbsp;</span>
-                                                                                    <span class="label">Facebook</span></div>
-                                                                         </li>-->
-                                        <li>
-                                            <div class="fb_btn" 
-                                                 data-href="/gag?p=${post.id}" 
-                                                 data-layout="icon">
-                                            </div>
+                                        <li class="btn social facebook">
+                                            <span class="fa fa-facebook" onclick="shareFacebook(${post.id});">&nbsp;</span>
+                                            <span class="label">Facebook</span>
                                         </li>
                                         <li class="btn social twitter">
                                             <span class="fa fa-twitter">&nbsp;</span>
