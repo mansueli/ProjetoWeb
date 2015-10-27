@@ -53,7 +53,15 @@ public class PostServlet extends HttpServlet {
                     request.setAttribute("session", session);
                 }
                 PostEntity post = postRepository.find(id);
+                PostEntity nextPost = null;
+                int i=1;
+                while(nextPost == null){
+                    nextPost = postRepository.find(post.getId()+i);
+                    i++;
+                }
                 request.setAttribute("post", post);
+                request.setAttribute("nextPost", nextPost);
+                System.out.println("NextPost==>" + nextPost.getTitle());
                 String url = ServletUtils.getCompleteURL(request);
                 request.setAttribute("url", url);
                 System.out.println("Post.title:" + post.getTitle());
