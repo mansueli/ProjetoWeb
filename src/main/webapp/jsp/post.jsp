@@ -115,7 +115,7 @@
                                     <li class="btn border"><span class="fa fa-comment"></span></li>
                                 </ul>
                                 <ul>
-                                    <li class="btn border" style="${session.getAttribute("username").equals(post.user.username)?"":"visibility: hidden;"}" onclick="deletePost();"><span class="fa fa-trash" style="${session.getAttribute("username").equals(post.user.username)?"":"visibility: hidden;"}"></span></li>
+                                    <li class="btn border ${session.getAttribute("username").equals(post.user.username)?"":"none"}" onclick="deletePost();"><span class="fa fa-trash"></span></li>
                                 </ul>                                    
                                 <ul class="social">
                                     <li class="btn social facebook" onclick="shareFacebook();"><span class="fa fa-facebook">&nbsp;</span>Facebook</li>
