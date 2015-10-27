@@ -58,9 +58,6 @@
                     <img src="./img/ad2.png"></img>
                 </div>
             </div>
-
-            <h3>Are you sure you wish to delete this post?</h3>
-
             <form name="delete" action="delete" method="post" accept-charset="utf-8">
                 <ul>
                     <li>

@@ -1,9 +1,8 @@
 <%-- 
-    Document   : category
-    Created on : Sep 22, 2015, 12:07:50 AM
+    Document   : hot
+    Created on : Sep 22, 2015, 12:07:21 AM
     Author     : Rodrigo
 --%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -51,6 +50,9 @@
             function shareFacebook(postid) {
                 window.location.href = "https://www.facebook.com/sharer/sharer.php?app_id=611311742344814&sdk=joey&u=http://localhost:8085/gag?p=" + postid;
             }
+            function shareTwitter(postid) {
+                window.location.href = "https://twitter.com/intent/tweet?url=http://localhost:8085/gag?p=" + postid;
+            }
         </script>  
         <div class="menu">
             <div class="menuLeft">
@@ -86,7 +88,7 @@
                     </c:choose>
                 </div>
             </div>
- 
+
             <div class="content">
                 <div class="stream">
                     <c:forEach var="post" items="${postList}">
@@ -117,7 +119,7 @@
                                             <span class="label">Facebook</span>
                                         </li>
                                         <li class="btn social twitter">
-                                            <span class="fa fa-twitter">&nbsp;</span>
+                                            <span class="fa fa-twitter" onclick="shareTwitter(${post.id});">&nbsp;</span>
                                             <span class="label">Twitter</span>
                                         </li>
                                     </ul>

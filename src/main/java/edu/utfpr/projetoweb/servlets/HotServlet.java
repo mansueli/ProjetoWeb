@@ -48,13 +48,11 @@ public class HotServlet extends HttpServlet {
         if (request.getParameterMap().containsKey("p")) {
             String param = new String(request.getParameter("p"));
             int p = getIntParameterValue(param);
-            System.out.println("\n\np ==" + p);
             postList = postRepository.getPostsbyLikes(p);
 
         } else {
             postList = postRepository.getPostsbyLikes(0);
         }
-        System.out.println("\nDebugTitle & id == " + postList.get(0).getTitle() + "|" + postList.get(0).getId());
         request.setAttribute("postList", postList);
         try {
             Cookie[] cookies = request.getCookies();

@@ -52,11 +52,11 @@
             function deletePost() {
                 window.location.href = "/delete?p=${post.id}";
             }
-            function shareFacebook(postid) {
-                window.location.href = "https://www.facebook.com/sharer/sharer.php?app_id=611311742344814&sdk=joey&u=http://localhost:8085/gag?p=" + postid;
+            function shareFacebook() {
+                window.location.href = "https://www.facebook.com/sharer/sharer.php?app_id=611311742344814&sdk=joey&u=http://localhost:8085/gag?p=${post.id}";
             }
-            function shareTwitter(postid, title) {
-                window.location.href = "https://twitter.com/intent/tweet?text=" + title + "&url=http://localhost:8085/gag?p=" + postid;
+            function shareTwitter() {
+                window.location.href = "https://twitter.com/intent/tweet?&url=http://localhost:8085/gag?p=${post.id}";
             }
             function nextPost() {
                 window.location.href = "/gag?p=${nextPost.id}";
@@ -85,7 +85,7 @@
                         <c:when test="${logged}">
                             <div class="search rightitem" onclick="search();"><a href="/search">Search</a></div>
                             <a class="navalt rightitem" href="userMain">${session.getAttribute("username")}</a> 
-                            <a class="navalt button btn rightitem" href="/logout">Log out</a></li>
+                            <a class="navalt button btn rightitem" href="/logout">Log out</a>
                             <a class="navalt button btn rightitem" href="/submit">+ Submit</a> 
                         </c:when>    
                         <c:otherwise>
@@ -118,11 +118,11 @@
                                     <li class="btn border"><span class="fa fa-comment"></span></li>
                                 </ul>
                                 <ul>
-                                    <li class="btn border ${session.getAttribute("username").equals(post.user.username)?"":"none"}" onclick="deletePost();"><span class="fa fa-trash"></span></li>
+                                    <li class="btn border" style="${session.getAttribute("username").equals(post.user.username)?"":"display:none;"}"" onclick="deletePost();"><span class="fa fa-trash"></span></li>
                                 </ul>                                    
                                 <ul class="social">
                                     <li class="btn social facebook" onclick="shareFacebook();"><span class="fa fa-facebook">&nbsp;</span>Facebook</li>
-                                    <li class="btn social twitter" onclick="shareTwitter(${post.id}, ${post.title});"><span class="fa fa-twitter">&nbsp;</span>Twitter</li>
+                                    <li class="btn social twitter" onclick="shareTwitter();"><span class="fa fa-twitter">&nbsp;</span>Twitter</li>
                                 </ul>
                                 <ul>
                                     <span class="arrow"></span>
@@ -144,7 +144,7 @@
                         <div class="actions">
                             <ul class="social">
                                 <li class="btn half left social facebook" onclick="shareFacebook();">Share on Facebook</li>
-                                <li class="btn half right social twitter" onclick="shareTwitter(${post.id}, ${post.title});">Share on Twitter</li>
+                                <li class="btn half right social twitter" onclick="shareTwitter();">Share on Twitter</li>
                             </ul>
                         </div>
                         <div class="clear"></div>
@@ -161,9 +161,7 @@
                 <div class="sidebar">
                     <div class="item">
                         <div class="ad">
-                            <div class="image">
-                                <a>PLACE YOUR AD HERE</a>
-                            </div>
+                            <img src="./img/ad1.png"></img>
                         </div>
                     </div>
                 </div>

@@ -13,8 +13,6 @@ import edu.utfpr.projetoweb.utils.ServletUtils;
 import static edu.utfpr.projetoweb.utils.ServletUtils.getIntParameterValue;
 import static edu.utfpr.projetoweb.utils.ServletUtils.printError;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Enumeration;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -55,7 +53,6 @@ public class DeleteServlet extends HttpServlet {
             String url = ServletUtils.getCompleteURL(request);
             request.setAttribute("post", post);
             request.setAttribute("url", url);
-            System.out.println("Post.title:" + post.getTitle());
             RequestDispatcher view = request.getRequestDispatcher("jsp/delete.jsp");
             view.forward(request, response);
         } else {
@@ -75,11 +72,6 @@ public class DeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        Enumeration<String> vaca = request.getParameterNames();
-        while (vaca.hasMoreElements()) {
-            String paramName = vaca.nextElement();
-            System.out.println(paramName);
-        }
         if (session != null) {
             int id = Integer.parseInt(request.getParameter("postID"));
             PostEntity post = postRepository.find(id);

@@ -45,16 +45,12 @@ public class CategoryServlet extends HttpServlet {
             if (request.getParameterMap().containsKey("c")) {
                 
                 String category = request.getParameter("c");
-                System.out.println("cat="+category);
                 if (request.getParameterMap().containsKey("p")) {
                     String param = request.getParameter("p");
                     int p = getIntParameterValue(param);
-                    System.out.println("\n\np ==" + p);
                     postList = postRepository.getPostsbyCategory(category, p);
-                    System.out.println("pls"+ postList.get(0).getTitle() );
                 } else {
                     postList = postRepository.getPostsbyCategory(category, 0);
-                    System.out.println("pls"+ postList.get(0).getTitle() );
                 }
                 if (!postList.isEmpty()) {
                     request.setAttribute("postList", postList);
@@ -62,13 +58,11 @@ public class CategoryServlet extends HttpServlet {
                     RequestDispatcher view = request.getRequestDispatcher("jsp/category.jsp");
                     view.forward(request, response);
                 }else{
-                    System.out.println("HERE");
 //                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 //                     response.sendError(HttpServletResponse.SC_NOT_FOUND);
                 }
             }
         }catch(Exception e){
-            System.out.println("exception" + e.getLocalizedMessage());
              response.setStatus(HttpServletResponse.SC_NOT_FOUND);
              response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }  

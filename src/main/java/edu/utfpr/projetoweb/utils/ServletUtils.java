@@ -22,10 +22,8 @@ public class ServletUtils {
 
     public static int getIntParameterValue(String requestURL) {
         String temps = keepNumbers(requestURL);
-        System.out.println(temps);
         if (isNumeric(temps)) {
             int postID = Integer.parseInt(temps);
-            System.out.println("postID == " + postID);
             return postID;
         }
         return -1;

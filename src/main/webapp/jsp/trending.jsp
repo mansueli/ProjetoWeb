@@ -1,9 +1,4 @@
 <%-- 
-    Document   : trending
-    Created on : Sep 22, 2015, 12:07:35 AM
-    Author     : Rodrigo
---%>
-<%-- 
     Document   : hot
     Created on : Sep 22, 2015, 12:07:21 AM
     Author     : Rodrigo
@@ -55,13 +50,16 @@
             function shareFacebook(postid) {
                 window.location.href = "https://www.facebook.com/sharer/sharer.php?app_id=611311742344814&sdk=joey&u=http://localhost:8085/gag?p=" + postid;
             }
+            function shareTwitter(postid) {
+                window.location.href = "https://twitter.com/intent/tweet?url=http://localhost:8085/gag?p=" + postid;
+            }
         </script>  
         <div class="menu">
             <div class="menuLeft">
                 <ul class="main">
                     <li><a class="logo" href="/hot">9GAG</a></li>
                     <li><a class="navmain hot" href="/hot">Hot</a></li>
-                    <li><a class="navmain trending  selected" href="/trending">Trending</a></li>
+                    <li><a class="navmain trending selected" href="/trending">Trending</a></li>
                     <li><a class="navmain fresh" href="/fresh">Fresh</a></li>
                 </ul>
                 <ul>
@@ -121,7 +119,7 @@
                                             <span class="label">Facebook</span>
                                         </li>
                                         <li class="btn social twitter">
-                                            <span class="fa fa-twitter">&nbsp;</span>
+                                            <span class="fa fa-twitter" onclick="shareTwitter(${post.id});">&nbsp;</span>
                                             <span class="label">Twitter</span>
                                         </li>
                                     </ul>

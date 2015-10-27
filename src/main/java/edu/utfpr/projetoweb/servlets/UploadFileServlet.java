@@ -127,7 +127,6 @@ public class UploadFileServlet extends HttpServlet {
                     if (fieldName.equals("category")) {
                         category = fieldValue;
                     }
-                    System.out.println("fieldName>"+ fieldName +"\n fieldVal>" + fieldValue);
                 } else {
                     // Process form file field (input type="file").
                     String fieldName = item.getFieldName();
@@ -138,7 +137,6 @@ public class UploadFileServlet extends HttpServlet {
                     UserEntity user = userRepository.findbyUsername((String) session.getAttribute("username"));
                     PostEntity post = new PostEntity(user, title, "/posts/img/" + targetFile.getName(), category);
                     postRepository.save(post);
-                    System.out.println("Upload done! Yes!!!");
                 }
             }
         } catch (Exception e) {

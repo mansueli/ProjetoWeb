@@ -61,10 +61,8 @@ public class PostServlet extends HttpServlet {
                 }
                 request.setAttribute("post", post);
                 request.setAttribute("nextPost", nextPost);
-                System.out.println("NextPost==>" + nextPost.getTitle());
                 String url = ServletUtils.getCompleteURL(request);
                 request.setAttribute("url", url);
-                System.out.println("Post.title:" + post.getTitle());
                 RequestDispatcher view = request.getRequestDispatcher("jsp/post.jsp");
                 view.forward(request, response);
             } else {

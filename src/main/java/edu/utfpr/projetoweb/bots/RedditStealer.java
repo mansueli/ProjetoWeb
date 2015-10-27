@@ -31,7 +31,6 @@ public class RedditStealer {
         PostRepository postRepository = PostRepository.getInstance();
         String subreddit = "meme";
         String username = subreddit + "doge";
-        //UserEntity(String username, String email, String avatarURL, String password){
         UserEntity user = new UserEntity(username, username + "@example.com", "", "4321");
         userRepository.save(user);
         user = userRepository.findbyUsername(username);
@@ -42,13 +41,10 @@ public class RedditStealer {
             if (first) {
                 first = !first;
             } else {
-                //System.out.println(str);
                 String title = getField("title", str);
                 int likes = (int) (Math.random() * 300);
                 String url = getURL(str);
-                //System.out.println(title + " " + likes + " " + url);
                 String validatedURL = urlChecker(url);
-                //public PostEntity(UserEntity user, String title, String imgURL, long likes, String category) {
                 if (!validatedURL.isEmpty()) {
                     PostEntity post = new PostEntity(user, title, validatedURL, likes, subreddit);
                     postRepository.save(post);
@@ -60,13 +56,11 @@ public class RedditStealer {
     private static String urlChecker(String url) {
         if (url.endsWith("jpg") || url.endsWith("png") || url.endsWith("gif")
                 || url.endsWith("JPG") || url.endsWith("PNG") || url.endsWith("GIF")) {
-            System.out.println(url);
             return url;
         }
         if (url.startsWith("http://imgur.com/") || url.startsWith("https://imgur.com/")) {
             String newurl = url.replace("imgur.com", "i.imgur.com");
             newurl += ".png";
-            System.out.println(newurl);
             if (newurl.contains("galle")) {
                 return "";
             }
@@ -82,7 +76,6 @@ public class RedditStealer {
             rand = get(query);
             return rand;
         } catch (Exception e) {
-            //Logger.getLogger(RandomOrg.class.getName()).log(Level.SEVERE, null, e);
         }
         System.out.println("Failed to get from Random.org (getRand)");
         return "";
@@ -92,10 +85,7 @@ public class RedditStealer {
         final int startson = 4 + field.length();
         int indexInit = json.indexOf(field) + startson;
         int indexFinal = json.indexOf('\"', indexInit);
-//        System.out.println(json.substring(indexInit));
-//        System.out.println(json.substring(indexInit, indexFinal));
         return json.substring(indexInit, indexFinal);
-        //num_reports
     }
 
     public static String getURL(String json) {
@@ -103,18 +93,13 @@ public class RedditStealer {
 
         int indexInit = json.indexOf("url", startson) + 5;
         int indexFinal = json.indexOf("\"", indexInit);
-//        System.out.println("url:");
-//        System.out.println(json.substring(indexInit));
         String oi = json.substring(indexInit, indexFinal);
         do {
             indexInit = json.indexOf("url", indexFinal) + 7;
             indexFinal = json.indexOf("\"", indexInit);
-//            System.out.println("url:");
             oi = json.substring(indexInit, indexFinal);
-//            System.out.println(oi);
         } while (oi.contains("reddit") == true);
         return oi;
-        //num_reports
     }//
 
     @SuppressWarnings({"BroadCatchBlock", "TooBroadCatch", "UseSpecificCatch"})
@@ -131,7 +116,6 @@ public class RedditStealer {
             String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line);
-                //System.out.println(line);
             }
             json = sb.toString();
         } catch (Exception e) {
