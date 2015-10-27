@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Rodrigo
  */
-@WebServlet(name = "SingupServlet", urlPatterns = {"/singup"})
-public class SingupServlet extends HttpServlet {
+@WebServlet(name = "SignupServlet", urlPatterns = {"/signup"})
+public class SignupServlet extends HttpServlet {
 
     UserRepository userRepository = UserRepository.getInstance();
     PostRepository postRepository = PostRepository.getInstance();
@@ -39,7 +39,7 @@ public class SingupServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher view = request.getRequestDispatcher("jsp/singup.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("jsp/signup.jsp");
         view.forward(request, response);
     }
 

@@ -29,8 +29,8 @@ public class RedditStealer {
     public static void main(String[] args) {
         UserRepository userRepository = UserRepository.getInstance();
         PostRepository postRepository = PostRepository.getInstance();
-        String subreddit = "cosplay";
-        String username = subreddit + "Guy";
+        String subreddit = "meme";
+        String username = subreddit + "doge";
         //UserEntity(String username, String email, String avatarURL, String password){
         UserEntity user = new UserEntity(username, username + "@example.com", "", "4321");
         userRepository.save(user);
@@ -44,7 +44,7 @@ public class RedditStealer {
             } else {
                 //System.out.println(str);
                 String title = getField("title", str);
-                int likes = (int) (Math.random() * 180);
+                int likes = (int) (Math.random() * 300);
                 String url = getURL(str);
                 //System.out.println(title + " " + likes + " " + url);
                 String validatedURL = urlChecker(url);

@@ -85,7 +85,7 @@
                         <c:otherwise>
                             <div class="search rightitem" onclick="search();"><a href="/search">Search</a></div>
                             <a class="navalt button btn rightitem" href="/login">Log in</a> 
-                            <a class="navalt button btn rightitem" href="/singup">Sing up</a>
+                            <a class="navalt button btn rightitem" href="/signup">Sign up</a>
                         </c:otherwise>
                     </c:choose>
                 </div>

@@ -16,7 +16,7 @@
     <body class="dark">
         <div class="popup">
             <section>
-                <form name="login" action="singup" method="post" accept-charset="utf-8">
+                <form name="login" action="signup" method="post" accept-charset="utf-8">
                     <ul>
                         <li>
                             <label for="username">Username</label>
