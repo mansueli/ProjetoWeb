@@ -33,8 +33,7 @@
                 window.location.href = "/search";
             }
             function deletePost() {
-                form = document.getElementById("deleteForm");
-                form.submit();
+                window.location.href = "/delete?p=${post.id}";
             }
             function shareFacebook() {
                 window.location.href = "https://www.facebook.com/sharer/sharer.php?app_id=611311742344814&sdk=joey&u=${url}";
@@ -110,9 +109,6 @@
                                     <span class="arrow"></span>
                                     <li class="btn next">Next Post</li>
                                 </ul>
-                                <form id="deleteForm" name="gag" action="gag" method="post" accept-charset="utf-8">
-                                    <input type="hidden" name="postID" value="${post.id}" required>
-                                </form>
                             </div>
                         </div>
 
