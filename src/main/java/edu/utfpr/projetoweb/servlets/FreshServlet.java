@@ -10,6 +10,7 @@ import edu.utfpr.projetoweb.repositories.PostRepository;
 import edu.utfpr.projetoweb.repositories.UserRepository;
 import static edu.utfpr.projetoweb.utils.ServletUtils.getIntParameterValue;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,9 +25,9 @@ import javax.servlet.http.HttpSession;
  *
  * @author Rodrigo
  */
-@WebServlet(name = "HotServlet", urlPatterns = {"/hot"})
-public class HotServlet extends HttpServlet {
-
+@WebServlet(name = "FreshServlet", urlPatterns = {"/fresh"})
+public class FreshServlet extends HttpServlet {
+    final int page = 7;
     UserRepository userRepository = UserRepository.getInstance();
     PostRepository postRepository = PostRepository.getInstance();
 
@@ -49,10 +50,10 @@ public class HotServlet extends HttpServlet {
             String param = new String(request.getParameter("p"));
             int p = getIntParameterValue(param);
             System.out.println("\n\np ==" + p);
-            postList = postRepository.getPostsbyLikes(p);
+            postList = postRepository.getPostsbyLikes(p+page);
 
         } else {
-            postList = postRepository.getPostsbyLikes(0);
+            postList = postRepository.getPostsbyLikes(page);
         }
         System.out.println("\nDebugTitle & id == " + postList.get(0).getTitle() + "|" + postList.get(0).getId());
         request.setAttribute("postList", postList);
@@ -73,7 +74,7 @@ public class HotServlet extends HttpServlet {
         } catch (Exception e) {
 
         }
-        RequestDispatcher view = request.getRequestDispatcher("jsp/hot.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("jsp/fresh.jsp");
         view.forward(request, response);
 
     }
