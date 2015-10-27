@@ -4,11 +4,12 @@
     Author     : Rodrigo
 --%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Post</title>
+        <title>IF68B - 9GAG clone</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="font-awesome-4.4.0/css/font-awesome.min.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="content.css">
@@ -18,27 +19,41 @@
         <link media="screen,projection" type="text/css" rel="stylesheet" href="ads.css">
     </head>
     <body>
-        <div id="fb-root"></div>
+        <!---  Facebook  API  -->
         <script>
+            // Facebook JS SDK
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '611311742344814',
+                    xfbml: true,
+                    status: true,
+                    version: 'v2.5'
+                });
+            };
             (function (d, s, id) {
                 var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id))
+                if (d.getElementById(id)) {
                     return;
+                }
                 js = d.createElement(s);
                 js.id = id;
-                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=611311742344814";
+                js.src = "//connect.facebook.net/en_US/sdk.js";
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
+            //Share code
+            FB.ui({
+                method: 'share',
+                href: 'https://developers.facebook.com/docs/',
+            }, function (response) {});
             function search() {
                 window.location.href = "/search";
             }
             function deletePost() {
                 window.location.href = "/delete?p=${post.id}";
+            function shareFacebook(postid) {
+                window.location.href = "https://www.facebook.com/sharer/sharer.php?app_id=611311742344814&sdk=joey&u=http://localhost:8085/gag?p=" + postid;
             }
-            function shareFacebook() {
-                window.location.href = "https://www.facebook.com/sharer/sharer.php?app_id=611311742344814&sdk=joey&u=${url}";
-            }
-        </script>
+        </script>  
         <div class="menu">
             <div class="menuLeft">
                 <ul class="main">

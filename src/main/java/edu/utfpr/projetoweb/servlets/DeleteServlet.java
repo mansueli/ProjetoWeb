@@ -13,6 +13,7 @@ import edu.utfpr.projetoweb.utils.ServletUtils;
 import static edu.utfpr.projetoweb.utils.ServletUtils.getIntParameterValue;
 import static edu.utfpr.projetoweb.utils.ServletUtils.printError;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,11 +26,11 @@ import javax.servlet.http.HttpSession;
  *
  * @author Rodrigo
  */
-@WebServlet(name = "PostServlet", urlPatterns = {"/gag"})
-public class PostServlet extends HttpServlet {
+@WebServlet(name = "DeleteServlet", urlPatterns = {"/delete"})
+public class DeleteServlet extends HttpServlet {
+    final UserRepository userRepository = UserRepository.getInstance();
+    final PostRepository postRepository = PostRepository.getInstance();
 
-    UserRepository userRepository = UserRepository.getInstance();
-    PostRepository postRepository = PostRepository.getInstance();
 
 
     /**
@@ -56,7 +57,7 @@ public class PostServlet extends HttpServlet {
             request.setAttribute("post", post);
             request.setAttribute("url", url);
             System.out.println("Post.title:"+ post.getTitle());
-            RequestDispatcher view = request.getRequestDispatcher("jsp/post.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("jsp/delete.jsp");
             view.forward(request, response);
         }
        response.sendRedirect("/404.html");
@@ -73,7 +74,22 @@ public class PostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("@TODO never handle this");
+                HttpSession session = request.getSession(false);
+        if(session!=null){
+            System.out.println("postID+++++>>>>" + request.getAttribute("postID"));
+            int id = Integer.parseInt( request.getAttribute("postID").toString());
+            System.out.println("id ===" + id);
+            PostEntity post = postRepository.find(id);
+            UserEntity user = userRepository.findbyUsername((String) session.getAttribute("username"));
+            if(post.getUser().equals(user)){
+                postRepository.delete(post);
+            }
+            else{
+                printError(request,response, "You are not allowed to perform this operation.");
+            }
+        }else{
+            printError(request,response, "You cannot delete if you are not logged in.");
+        }
     }
 
     /**
@@ -85,6 +101,4 @@ public class PostServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
-
-
 }
