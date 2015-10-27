@@ -45,9 +45,12 @@ public class PostServlet extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
-        
+        HttpSession session = request.getSession(false);
         int id = getIntParameterValue(new String(request.getParameter("p")));
         if(id!=-1){
+            if (session != null) {
+                            request.setAttribute("session", session);
+            }
             PostEntity post = postRepository.find(id);
             String url = ServletUtils.getCompleteURL(request);
             request.setAttribute("post", post);
@@ -72,7 +75,9 @@ public class PostServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if(session!=null){
-            int id = (int) request.getAttribute("postID");
+            System.out.println("postID+++++>>>>" + request.getAttribute("postID"));
+            int id = Integer.parseInt( request.getAttribute("postID").toString());
+            System.out.println("id ===" + id);
             PostEntity post = postRepository.find(id);
             UserEntity user = userRepository.findbyUsername((String) session.getAttribute("username"));
             if(post.getUser().equals(user)){
