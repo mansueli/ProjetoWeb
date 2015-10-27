@@ -122,9 +122,6 @@
                                     <li class="btn social twitter"><span class="fa fa-twitter">&nbsp;</span>Twitter</li>
                                 </ul>
                                 <ul>
-                                    <li class="btn border"><span class="fa fa-ellipsis-h"></span></li>
-                                </ul>
-                                <ul>
                                     <span class="arrow"></span>
                                     <li class="btn next" onclick="nextPost();">Next Post</li>
                                 </ul>
