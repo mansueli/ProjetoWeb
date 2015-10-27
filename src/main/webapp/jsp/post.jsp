@@ -144,9 +144,13 @@
                                 <li class="btn half right social twitter">Share on Twitter</li>
                             </ul>
                         </div>
+                        <div class="clear"></div>
 
-                        <hr>
-                        <a href="mailto:example@example.org">REPORT</a>
+                        <hr class="noMargin">
+
+                        <a class="report right" href="mailto:example@example.org">REPORT</a>
+                        <div class="clear"></div>
+
                         <div class="fb-comments" data-href="${url}" data-width="500" data-numposts="7"></div>
                     </div>
                 </div>

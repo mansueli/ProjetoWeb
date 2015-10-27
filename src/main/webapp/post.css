@@ -81,3 +81,14 @@ hr {
 ul li.facebook a{
     color: #FFF;
 }
+
+a.report {
+    color: #999;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+a.report:hover {
+    color: #000;
+    text-decoration: underline;
+}
