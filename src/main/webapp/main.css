@@ -23,6 +23,11 @@ a:any-link{
 .right {
     float: right;
 }
+
+.clear {
+    clear: both;
+}
+
 /*********************************************
     Top Menu
 
