@@ -28,6 +28,10 @@ a:any-link{
     clear: both;
 }
 
+.none {
+    display: none;
+}
+
 /*********************************************
     Top Menu
 
