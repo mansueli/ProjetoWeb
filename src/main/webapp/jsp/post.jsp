@@ -55,6 +55,9 @@
             function shareFacebook(postid) {
                 window.location.href = "https://www.facebook.com/sharer/sharer.php?app_id=611311742344814&sdk=joey&u=http://localhost:8085/gag?p=" + postid;
             }
+            function shareTwitter(postid, title) {
+                window.location.href = "https://twitter.com/intent/tweet?text=" + title + "&url=http://localhost:8085/gag?p=" + postid;
+            }
             function nextPost() {
                 window.location.href = "/gag?p=${nextPost.id}";
             }
@@ -119,7 +122,7 @@
                                 </ul>                                    
                                 <ul class="social">
                                     <li class="btn social facebook" onclick="shareFacebook();"><span class="fa fa-facebook">&nbsp;</span>Facebook</li>
-                                    <li class="btn social twitter"><span class="fa fa-twitter">&nbsp;</span>Twitter</li>
+                                    <li class="btn social twitter" onclick="shareTwitter(${post.id}, ${post.title});"><span class="fa fa-twitter">&nbsp;</span>Twitter</li>
                                 </ul>
                                 <ul>
                                     <span class="arrow"></span>
@@ -141,7 +144,7 @@
                         <div class="actions">
                             <ul class="social">
                                 <li class="btn half left social facebook" onclick="shareFacebook();">Share on Facebook</li>
-                                <li class="btn half right social twitter">Share on Twitter</li>
+                                <li class="btn half right social twitter" onclick="shareTwitter(${post.id}, ${post.title});">Share on Twitter</li>
                             </ul>
                         </div>
                         <div class="clear"></div>

@@ -50,6 +50,9 @@
             function shareFacebook(postid) {
                 window.location.href = "https://www.facebook.com/sharer/sharer.php?app_id=611311742344814&sdk=joey&u=http://localhost:8085/gag?p=" + postid;
             }
+            function shareTwitter(postid, title) {
+                window.location.href = "https://twitter.com/intent/tweet?text=" + title + "&url=http://localhost:8085/gag?p=" + postid;
+            }
         </script>  
         <div class="menu">
             <div class="menuLeft">
@@ -116,7 +119,7 @@
                                             <span class="label">Facebook</span>
                                         </li>
                                         <li class="btn social twitter">
-                                            <span class="fa fa-twitter">&nbsp;</span>
+                                            <span class="fa fa-twitter" onclick="shareTwitter(${post.id}, ${post.title});">&nbsp;</span>
                                             <span class="label">Twitter</span>
                                         </li>
                                     </ul>
