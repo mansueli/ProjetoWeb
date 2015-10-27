@@ -6,6 +6,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -50,6 +51,7 @@
             }
             function deletePost() {
                 window.location.href = "/delete?p=${post.id}";
+            }
             function shareFacebook(postid) {
                 window.location.href = "https://www.facebook.com/sharer/sharer.php?app_id=611311742344814&sdk=joey&u=http://localhost:8085/gag?p=" + postid;
             }
@@ -110,11 +112,10 @@
                                     <li class="btn border"><span class="fa fa-comment"></span></li>
                                 </ul>
                                 <ul>
-                                    <li class="btn border" onclick="deletePost();"><span class="fa fa-trash"></span></li>
-                                </ul>
+                                    <li class="btn border" style="${session.getAttribute("username").equals(post.user.username)?"":"visibility: hidden;"}" onclick="deletePost();"><span class="fa fa-trash" style="${session.getAttribute("username").equals(post.user.username)?"":"visibility: hidden;"}"></span></li>
+                                </ul>                                    
                                 <ul class="social">
                                     <li class="btn social facebook" onclick="shareFacebook();"><span class="fa fa-facebook">&nbsp;</span>Facebook</li>
-    <!--                                <li class="btn social facebook"><div class="fb-share-button" data-href="${url}" data-layout="icon"></div></li>-->
                                     <li class="btn social twitter"><span class="fa fa-twitter">&nbsp;</span>Twitter</li>
                                 </ul>
                                 <ul>
@@ -156,24 +157,6 @@
                             <div class="image">
                                 <a>PLACE YOUR AD HERE</a>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="post">
-                            <div class="image">
-                                <a>RANDOM IMAGE 1</a>
-                            </div>
-                            <h3>Random post 1</h3>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="post">
-                            <div class="image">
-                                <a>RANDOM IMAGE 2</a>
-                            </div>
-                            <h3>Random post 2</h3>
                         </div>
                     </div>
                 </div>

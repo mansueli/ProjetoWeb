@@ -11,7 +11,6 @@ import edu.utfpr.projetoweb.repositories.UserRepository;
 import edu.utfpr.projetoweb.utils.Encryption;
 import static edu.utfpr.projetoweb.utils.ServletUtils.printError;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

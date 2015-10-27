@@ -10,7 +10,7 @@ import edu.utfpr.projetoweb.entities.UserEntity;
 import edu.utfpr.projetoweb.repositories.PostRepository;
 import edu.utfpr.projetoweb.repositories.UserRepository;
 import java.io.IOException;
-import java.io.PrintWriter;
+import static edu.utfpr.projetoweb.utils.ServletUtils.printError;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,13 +42,18 @@ public class UserMainServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(false);
         if(session!=null){
+            try{
             String username = (String) session.getAttribute("username");
+            
             UserEntity user = userRepository.findbyUsername(username);
             List<PostEntity> postList = postRepository.getPostsbyUser(user);
             request.setAttribute("postList", postList);
             request.setAttribute("category", "");
             RequestDispatcher view = request.getRequestDispatcher("jsp/category.jsp");
             view.forward(request, response);
+            }catch(Exception e){
+                printError(request, response, "Sorry, it wasn't possible to do that");
+            }
         }
     }
 
@@ -90,5 +95,6 @@ public class UserMainServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 
 }

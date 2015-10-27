@@ -14,6 +14,7 @@ import static edu.utfpr.projetoweb.utils.ServletUtils.getIntParameterValue;
 import static edu.utfpr.projetoweb.utils.ServletUtils.printError;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,10 +29,9 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "DeleteServlet", urlPatterns = {"/delete"})
 public class DeleteServlet extends HttpServlet {
+
     final UserRepository userRepository = UserRepository.getInstance();
     final PostRepository postRepository = PostRepository.getInstance();
-
-
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -44,23 +44,23 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(false);
         int id = getIntParameterValue(request.getParameter("p"));
-        if(id!=-1){
+        if (id != -1) {
             if (session != null) {
-                            request.setAttribute("session", session);
+                request.setAttribute("session", session);
             }
             PostEntity post = postRepository.find(id);
             String url = ServletUtils.getCompleteURL(request);
             request.setAttribute("post", post);
             request.setAttribute("url", url);
-            System.out.println("Post.title:"+ post.getTitle());
+            System.out.println("Post.title:" + post.getTitle());
             RequestDispatcher view = request.getRequestDispatcher("jsp/delete.jsp");
             view.forward(request, response);
+        } else {
+            response.sendRedirect("404.html");
         }
-       response.sendRedirect("/404.html");
     }
 
     /**
@@ -74,21 +74,24 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                HttpSession session = request.getSession(false);
-        if(session!=null){
-            System.out.println("postID+++++>>>>" + request.getAttribute("postID"));
-            int id = Integer.parseInt( request.getAttribute("postID").toString());
-            System.out.println("id ===" + id);
+        HttpSession session = request.getSession(false);
+        Enumeration<String> vaca = request.getParameterNames();
+        while (vaca.hasMoreElements()) {
+            String paramName = vaca.nextElement();
+            System.out.println(paramName);
+        }
+        if (session != null) {
+            int id = Integer.parseInt(request.getParameter("postID"));
             PostEntity post = postRepository.find(id);
             UserEntity user = userRepository.findbyUsername((String) session.getAttribute("username"));
-            if(post.getUser().equals(user)){
+            if (post.getUser().getUsername().equals(user.getUsername())) {
                 postRepository.delete(post);
+                response.sendRedirect("hot");
+            } else {
+                printError(request, response, "You are not allowed to perform this operation.");
             }
-            else{
-                printError(request,response, "You are not allowed to perform this operation.");
-            }
-        }else{
-            printError(request,response, "You cannot delete if you are not logged in.");
+        } else {
+            printError(request, response, "You cannot delete if you are not logged in.");
         }
     }
 
