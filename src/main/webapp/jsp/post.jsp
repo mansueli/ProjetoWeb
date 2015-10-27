@@ -32,6 +32,10 @@
             function search() {
                 window.location.href = "/search";
             }
+            function deletePost() {
+                form = document.getElementById("deleteForm");
+                form.submit();
+            }
             function shareFacebook() {
                 window.location.href = "https://www.facebook.com/sharer/sharer.php?app_id=611311742344814&sdk=joey&u=${url}";
             }
@@ -91,6 +95,9 @@
                                 <ul>
                                     <li class="btn border"><span class="fa fa-comment"></span></li>
                                 </ul>
+                                <ul>
+                                    <li class="btn border" onclick="deletePost();"><span class="fa fa-trash"></span></li>
+                                </ul>
                                 <ul class="social">
                                     <li class="btn social facebook" onclick="shareFacebook();"><span class="fa fa-facebook">&nbsp;</span>Facebook</li>
     <!--                                <li class="btn social facebook"><div class="fb-share-button" data-href="${url}" data-layout="icon"></div></li>-->
@@ -103,6 +110,9 @@
                                     <span class="arrow"></span>
                                     <li class="btn next">Next Post</li>
                                 </ul>
+                                <form id="deleteForm" name="gag" action="gag" method="post" accept-charset="utf-8">
+                                    <input type="hidden" name="postID" value="${post.id}" required>
+                                </form>
                             </div>
                         </div>
 
