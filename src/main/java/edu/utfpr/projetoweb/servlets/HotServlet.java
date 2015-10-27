@@ -65,6 +65,7 @@ public class HotServlet extends HttpServlet {
                         HttpSession session = request.getSession(false);
                         if (session != null) {
                             request.setAttribute("session", session);
+                            request.setAttribute("logged", true);
                         }
                     }
                 }

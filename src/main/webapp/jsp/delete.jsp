@@ -12,7 +12,39 @@
         <link media="screen,projection" type="text/css" rel="stylesheet" href="ads.css">
     </head>
     <body>
-        <div id="fb-root"></div>
+        <!---  Facebook  API  -->
+        <script>
+            // Facebook JS SDK
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '611311742344814',
+                    xfbml: true,
+                    status: true,
+                    version: 'v2.5'
+                });
+            };
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {
+                    return;
+                }
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+            //Share code
+            FB.ui({
+                method: 'share',
+                href: 'https://developers.facebook.com/docs/',
+            }, function (response) {});
+            function search() {
+                window.location.href = "/search";
+            }
+            function shareFacebook(postid) {
+                window.location.href = "https://www.facebook.com/sharer/sharer.php?app_id=611311742344814&sdk=joey&u=http://localhost:8085/gag?p=" + postid;
+            }
+        </script>  
         <div class="menu">
             <div class="menuLeft">
                 <ul class="main">
@@ -32,19 +64,11 @@
             </div>
             <div class="menuRight">
                 <div class="function">
-                    <c:choose>
-                        <c:when test="${logged}">
+                        <c:when test="${abobrinha.equals("vaca")}">
                             <div class="search rightitem" onclick="search();"><a href="/search">Search</a></div>
-                            <a class="navalt rightitem" href="userMain">${session.getAttribute("username")}</a>
+                            <a class="navalt rightitem" href="userMain">${session.getAttribute("username")}</a> 
                             <a class="navalt button btn rightitem" href="/logout">Log out</a></li>
-                            <a class="navalt button btn rightitem" href="/submit">+ Submit</a>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="search rightitem" onclick="search();"><a href="/search">Search</a></div>
-                            <a class="navalt button btn rightitem" href="/login">Log in</a>
-                            <a class="navalt button btn rightitem" href="/singup">Sing up</a>
-                        </c:otherwise>
-                    </c:choose>
+                            <a class="navalt button btn rightitem" href="/submit">+ Submit</a> 
                 </div>
             </div>
             <div class="content">

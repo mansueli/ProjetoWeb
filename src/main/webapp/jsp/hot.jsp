@@ -126,28 +126,12 @@
                         <hr>
                     </c:forEach>
                 </div>
-                <div class="sidebar">
+        <div class="sidebar">
                     <div class="item">
                         <div class="ad">
                             <img src="./img/ad1.png"></img>
                         </div>
                     </div>
-                    <div class="item">
-                        <div class="post">
-                            <div class="image">
-                                <a>RANDOM IMAGE 1</a>
-                            </div>
-                            <h3>Random post 1</h3>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="post">
-                            <div class="image">
-                                <a>RANDOM IMAGE 2</a>
-                            </div>
-                            <h3>Random post 2</h3>
-                        </div>
-                    </div>
-                </div>
-                </body>
-                </html>
+        </div>
+    </body>
+</html>

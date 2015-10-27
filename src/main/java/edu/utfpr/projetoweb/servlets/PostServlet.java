@@ -31,7 +31,6 @@ public class PostServlet extends HttpServlet {
     UserRepository userRepository = UserRepository.getInstance();
     PostRepository postRepository = PostRepository.getInstance();
 
-
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -44,22 +43,29 @@ public class PostServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession(false);
-        int id = getIntParameterValue(request.getParameter("p"));
-        if(id!=-1){
-            if (session != null) {
-                            request.setAttribute("session", session);
+        try {
+            response.setContentType("text/html;charset=UTF-8");
+            HttpSession session = request.getSession(false);
+            int id = getIntParameterValue(request.getParameter("p"));
+            UserEntity user = null;
+            if (id != -1) {
+                if (session != null) {
+                    request.setAttribute("session", session);
+                }
+                PostEntity post = postRepository.find(id);
+                request.setAttribute("post", post);
+                String url = ServletUtils.getCompleteURL(request);
+                request.setAttribute("url", url);
+                System.out.println("Post.title:" + post.getTitle());
+                RequestDispatcher view = request.getRequestDispatcher("jsp/post.jsp");
+                view.forward(request, response);
+            } else {
+                //response.sendRedirect("/404.html");
             }
-            PostEntity post = postRepository.find(id);
-            String url = ServletUtils.getCompleteURL(request);
-            request.setAttribute("post", post);
-            request.setAttribute("url", url);
-            System.out.println("Post.title:"+ post.getTitle());
-            RequestDispatcher view = request.getRequestDispatcher("jsp/post.jsp");
-            view.forward(request, response);
+        } catch (Exception e) {
+            //response.sendRedirect("/404.html");
         }
-       response.sendRedirect("/404.html");
+
     }
 
     /**
@@ -85,6 +91,5 @@ public class PostServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
-
 
 }
