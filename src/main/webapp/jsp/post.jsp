@@ -55,6 +55,9 @@
             function shareFacebook(postid) {
                 window.location.href = "https://www.facebook.com/sharer/sharer.php?app_id=611311742344814&sdk=joey&u=http://localhost:8085/gag?p=" + postid;
             }
+            function nextPost() {
+                window.location.href = "/gag?p=${nextPost.id}";
+            }
         </script>  
         <div class="menu">
             <div class="menuLeft">
@@ -123,7 +126,7 @@
                                 </ul>
                                 <ul>
                                     <span class="arrow"></span>
-                                    <li class="btn next">Next Post</li>
+                                    <li class="btn next" onclick="nextPost();">Next Post</li>
                                 </ul>
                             </div>
                         </div>

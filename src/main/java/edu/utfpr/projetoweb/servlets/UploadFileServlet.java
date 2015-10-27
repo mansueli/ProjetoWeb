@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -55,6 +56,9 @@ public class UploadFileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+                response.setContentType("text/html;charset=UTF-8");
+        RequestDispatcher view = request.getRequestDispatcher("jsp/upload.jsp");
+        view.forward(request, response);
     }
 
     /**
