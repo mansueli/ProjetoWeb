@@ -15,6 +15,7 @@
     </head>
     <body class="dark">
         <div class="popup">
+            <h1>Sign up</h1>
             <section>
                 <form name="login" action="signup" method="post" accept-charset="utf-8">
                     <ul>
