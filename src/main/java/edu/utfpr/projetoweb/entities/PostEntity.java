@@ -102,4 +102,5 @@ public class PostEntity implements Serializable {
         this.category = category;
     }
 
+
 }

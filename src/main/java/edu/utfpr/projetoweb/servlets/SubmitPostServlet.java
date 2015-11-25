@@ -11,6 +11,7 @@ import edu.utfpr.projetoweb.repositories.PostRepository;
 import edu.utfpr.projetoweb.repositories.UserRepository;
 import static edu.utfpr.projetoweb.utils.ServletUtils.printError;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.RequestDispatcher;
@@ -62,19 +63,28 @@ public class SubmitPostServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         boolean isValidCategory = false;
         if (session != null) {
-            String category = request.getParameter("category");
+            String category = request.getParameter("category").toLowerCase();
             if (isValidCategory(category)) {
                 String title = request.getParameter("title");
                 String url = request.getParameter("url");
                 UserEntity user = userRepository.findbyUsername((String) session.getAttribute("username"));
-                String regex = "http(s?)://([\\w-]+\\.)+[\\w-]+(/[\\w- ./]*)+\\.(?:[gG][iI][fF]|[jJ][pP][gG]|[jJ][pP][eE][gG]|[pP][nN][gG]|[bB][mM][pP])";
-                Matcher m = Pattern.compile(regex).matcher(url);
-                if(m.find()){
-                    PostEntity post = new PostEntity(user, title, url, category);
+                String regex = "(http(s?):/)(/[^/]+)+\" + \"\\.(?:jpg|gif|png)";
+                Matcher m = Pattern.compile(regex).matcher(url.toLowerCase());
+                if (url.startsWith("http")
+                        && ((url.toLowerCase().endsWith(".jpg"))
+                        || (url.toLowerCase().endsWith(".gif"))
+                        || (url.toLowerCase().endsWith(".jpeg"))
+                        || (url.toLowerCase().endsWith(".png")))) {
+                    PostEntity post = new PostEntity(user, title, url, 1, category);
                     postRepository.save(post);
-                    post = postRepository.findbyImgURL(url);
-                    response.sendRedirect("gag?p=" + post.getId());
-                }else{
+                    PrintWriter out = response.getWriter();
+                    try {
+                        //response.sendRedirect("http://www.studytonight.com");
+                        response.sendRedirect("hot");
+                    } finally {
+                        out.close();
+                    }
+                } else {
                     printError(request, response, "Invalid Image URL.");
                 }
             } else {

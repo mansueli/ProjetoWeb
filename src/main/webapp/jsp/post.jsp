@@ -115,10 +115,10 @@
                                     <li class="btn border"><span class="fa fa-arrow-down"></span></li>
                                 </ul>
                                 <ul>
-                                    <li class="btn border"><span class="fa fa-comment"></span></li>
+                                    <li class="btn border"> <span class="fa fa-comment"></span></li>
                                 </ul>
                                 <ul>
-                                    <li class="btn border" style="${session.getAttribute("username").equals(post.user.username)?"":"display:none;"}"" onclick="deletePost();"><span class="fa fa-trash"></span></li>
+                                    <li class="btn border" style="${session.getAttribute("username").equals(post.user.username)?"":"display:none;"}" onclick="deletePost();"><span class="fa fa-trash"></span></li>
                                 </ul>                                    
                                 <ul class="social">
                                     <li class="btn social facebook" onclick="shareFacebook();"><span class="fa fa-facebook">&nbsp;</span>Facebook</li>
@@ -137,7 +137,7 @@
 
                         <div class="ad">
                             <div class="image">
-                                <img src="./img/ad2.png"></img>
+                                <a href="https://telexfree99.wordpress.com/tag/telexfree-paga-imposto-de-renda/"><img src="./img/ad2.png"></img></a>
                             </div>
                         </div>
 
@@ -154,7 +154,7 @@
                         <a class="report right" href="mailto:example@example.org">REPORT</a>
                         <div class="clear"></div>
 
-                        <div class="fb-comments" data-href="${url}" data-width="500" data-numposts="7"></div>
+                        <div name="comments" class="fb-comments" data-href="${url}" data-width="500" data-numposts="7"></div>
                     </div>
                 </div>
 

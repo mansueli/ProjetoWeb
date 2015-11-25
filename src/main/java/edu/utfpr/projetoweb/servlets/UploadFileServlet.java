@@ -85,31 +85,6 @@ public class UploadFileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        System.out.println("here");
-//        setSettings();
-//        HttpSession session = request.getSession(false);
-//        if (session != null) {
-//            request.setAttribute("session", session);
-//            String title = request.getParameter("title");
-//            String category = request.getParameter("category");
-//            Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-//            String fileName = filePart.getSubmittedFileName();
-//            try (InputStream input = filePart.getInputStream()) {
-//                try {
-//                    BufferedImage img = ImageIO.read(input);
-//                    File file = new File(folderPath.getAbsolutePath() + "/" + imgID + ".png");
-//                    ImageIO.write(img, "png", file);
-//                    UserEntity user = userRepository.findbyUsername((String) session.getAttribute("username"));
-//                    //public PostEntity(UserEntity user, String title, String imgURL, String category)
-//                    PostEntity post = new PostEntity(user, title, "/posts/img/" + imgID + ".png", category);
-//                    System.out.println("Upload done! Yes!!!");
-//                } catch (Exception e) {
-//                    printError(request, response, e.getLocalizedMessage());
-//                }
-//            } catch (Exception e) {
-//                printError(request, response, e.getLocalizedMessage());
-//            }
-//        }
         HttpSession session = request.getSession(false);
         if (session != null) {
         try {

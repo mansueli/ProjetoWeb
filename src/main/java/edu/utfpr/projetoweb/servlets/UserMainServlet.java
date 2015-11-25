@@ -5,12 +5,14 @@
  */
 package edu.utfpr.projetoweb.servlets;
 
+import com.google.gson.Gson;
 import edu.utfpr.projetoweb.entities.PostEntity;
 import edu.utfpr.projetoweb.entities.UserEntity;
 import edu.utfpr.projetoweb.repositories.PostRepository;
 import edu.utfpr.projetoweb.repositories.UserRepository;
 import java.io.IOException;
 import static edu.utfpr.projetoweb.utils.ServletUtils.printError;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,7 +41,6 @@ public class UserMainServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(false);
         if(session!=null){
             try{
@@ -49,8 +50,19 @@ public class UserMainServlet extends HttpServlet {
             List<PostEntity> postList = postRepository.getPostsbyUser(user);
             request.setAttribute("postList", postList);
             request.setAttribute("category", "");
+                    if (request.getParameterMap().containsKey("json")) {
+            response.setContentType("application/json");
+            try (PrintWriter out = response.getWriter()) {
+                Gson gson = new Gson();
+                String json = gson.toJson(postList);
+                out.println(json);
+            } catch (Exception e) {
+            }
+        } else {
+            response.setContentType("text/html;charset=UTF-8");
             RequestDispatcher view = request.getRequestDispatcher("jsp/category.jsp");
             view.forward(request, response);
+        }
             }catch(Exception e){
                 printError(request, response, "Sorry, it wasn't possible to do that");
             }

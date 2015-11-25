@@ -5,32 +5,55 @@
  */
 package edu.utfpr.projetoweb.servlets;
 
+import com.google.gson.Gson;
 import edu.utfpr.projetoweb.entities.PostEntity;
-import edu.utfpr.projetoweb.entities.UserEntity;
 import edu.utfpr.projetoweb.repositories.PostRepository;
 import edu.utfpr.projetoweb.repositories.UserRepository;
-import edu.utfpr.projetoweb.utils.ServletUtils;
 import static edu.utfpr.projetoweb.utils.ServletUtils.getIntParameterValue;
-import static edu.utfpr.projetoweb.utils.ServletUtils.printError;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Rodrigo
  */
-@WebServlet(name = "PostServlet", urlPatterns = {"/gag"})
-public class PostServlet extends HttpServlet {
+@WebServlet(name = "JSONSearch", urlPatterns = {"/JSONSearch"})
+public class JSONSearch extends HttpServlet {
 
     UserRepository userRepository = UserRepository.getInstance();
     PostRepository postRepository = PostRepository.getInstance();
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("application/json");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            String query = request.getParameter("q");
+            List<PostEntity> postListAll = postRepository.findAll();
+            List<PostEntity> postList = postListAll.stream().filter(p -> p.getTitle().contains(query)).limit(10).collect(Collectors.toList());
+            Gson gson = new Gson();
+            String json = gson.toJson(postList);
+            out.println(json);
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -42,38 +65,7 @@ public class PostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        try {
-            response.setContentType("text/html;charset=UTF-8");
-            HttpSession session = request.getSession(false);
-            int id = getIntParameterValue(request.getParameter("p"));
-            UserEntity user = null;
-            if (id != -1) {
-                if (session != null) {
-                    request.setAttribute("session", session);
-                }
-                PostEntity post = postRepository.find(id);
-                PostEntity nextPost = null;
-                int i=1;long rand;
-                while(nextPost == null){
-                    rand =(long) (Math.random()*250);
-                    System.out.println("rand: "+rand);
-                    nextPost = postRepository.find(rand);
-                    System.out.println("post: "+nextPost.getTitle());
-                }
-                request.setAttribute("post", post);
-                request.setAttribute("nextPost", nextPost);
-                String url = ServletUtils.getCompleteURL(request);
-                request.setAttribute("url", url);
-                RequestDispatcher view = request.getRequestDispatcher("jsp/post.jsp");
-                view.forward(request, response);
-            } else {
-                //response.sendRedirect("/404.html");
-            }
-        } catch (Exception e) {
-            //response.sendRedirect("/404.html");
-        }
-
+        processRequest(request, response);
     }
 
     /**
@@ -87,7 +79,7 @@ public class PostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("@TODO never handle this");
+        processRequest(request, response);
     }
 
     /**
@@ -98,6 +90,6 @@ public class PostServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
+    }// </editor-fold>
 
 }

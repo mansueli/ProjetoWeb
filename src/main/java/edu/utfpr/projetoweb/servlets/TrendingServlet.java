@@ -5,6 +5,7 @@
  */
 package edu.utfpr.projetoweb.servlets;
 
+import com.google.gson.Gson;
 import edu.utfpr.projetoweb.entities.PostEntity;
 import edu.utfpr.projetoweb.repositories.PostRepository;
 import edu.utfpr.projetoweb.repositories.UserRepository;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "TrendingServlet", urlPatterns = {"/trending"})
 public class TrendingServlet extends HttpServlet {
+
     final int page = 4;
     UserRepository userRepository = UserRepository.getInstance();
     PostRepository postRepository = PostRepository.getInstance();
@@ -42,14 +44,12 @@ public class TrendingServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         List<PostEntity> postList;
         //Checks if page parameter exists:
-
         if (request.getParameterMap().containsKey("p")) {
             String param = new String(request.getParameter("p"));
             int p = getIntParameterValue(param);
-            postList = postRepository.getPostsbyLikes(p+page);
+            postList = postRepository.getPostsbyLikes(p + page);
 
         } else {
             postList = postRepository.getPostsbyLikes(page);
@@ -72,9 +72,19 @@ public class TrendingServlet extends HttpServlet {
         } catch (Exception e) {
 
         }
-        RequestDispatcher view = request.getRequestDispatcher("jsp/trending.jsp");
-        view.forward(request, response);
-
+        if (request.getParameterMap().containsKey("json")) {
+            response.setContentType("application/json");
+            try (PrintWriter out = response.getWriter()) {
+                Gson gson = new Gson();
+                String json = gson.toJson(postList);
+                out.println(json);
+            } catch (Exception e) {
+            }
+        } else {
+            response.setContentType("text/html;charset=UTF-8");
+            RequestDispatcher view = request.getRequestDispatcher("jsp/trending.jsp");
+            view.forward(request, response);
+        }
     }
 
     /**

@@ -29,12 +29,14 @@ public class RedditStealer {
     public static void main(String[] args) {
         UserRepository userRepository = UserRepository.getInstance();
         PostRepository postRepository = PostRepository.getInstance();
-        String subreddit = "meme";
-        String username = subreddit + "doge";
+        String subreddit = "comics";
+        String username = subreddit + "maniac";
         UserEntity user = new UserEntity(username, username + "@example.com", "", "4321");
-        userRepository.save(user);
+        //userRepository.save(user);
         user = userRepository.findbyUsername(username);
-        String jsonreturn = getJSONString("http://www.reddit.com/r/" + subreddit + "/.json?limit=99");
+        String jsonreturn = getJSONString("http://www.reddit.com/r/" + subreddit + "/.json?limit=60");
+        
+        System.out.println(jsonreturn);
         String[] array = jsonreturn.split("\"domain\"");
         boolean first = true;
         for (String str : array) {
@@ -42,11 +44,11 @@ public class RedditStealer {
                 first = !first;
             } else {
                 String title = getField("title", str);
-                int likes = (int) (Math.random() * 300);
+                int likes = (int) (Math.random() * 200);
                 String url = getURL(str);
                 String validatedURL = urlChecker(url);
                 if (!validatedURL.isEmpty()) {
-                    PostEntity post = new PostEntity(user, title, validatedURL, likes, subreddit);
+                    PostEntity post = new PostEntity(user, title, validatedURL, likes, "comic");//subreddit);
                     postRepository.save(post);
                 }
             }
