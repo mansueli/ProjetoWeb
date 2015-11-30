@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="popup.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="main.css">
-        <title>Log in</title>
+        <title>Search</title>
     </head>
     <body class="dark">
         <div class="popup">
@@ -20,7 +20,7 @@
                 <form name="search" action="search" method="post" accept-charset="utf-8">
                     <ul>
                         <li>
-                            <input type="text" name="q" placeholder="search query" required>
+                            <input id="searchable" type="text" name="q" placeholder="search query" required>
                         </li>
                         <li>
                             <input class="btn" type="submit" value="Search">
@@ -28,6 +28,73 @@
                     </ul>
                 </form>
             </section>
-        </div>
+            <h2 class="msg">Loading . . . </h2>
+            <hr/>
+            <div class="results">
+            </div>
+            <script type="text/javascript" charset="utf-8">
+
+                /***
+                 * Ajax->
+                 *      XMLHttpRequest
+                 *      Progress Indicator
+                 *      Live Search
+                 *      JSON-Message
+                 */
+                var container = document.querySelector(".popup"),
+                mensagens = document.querySelector(".msg");
+                document.querySelector("#searchable").addEventListener("keyup", function (ev) {
+                    if (ev.keyCode != 13)
+                        return;
+                    var xhr = new XMLHttpRequest(),
+                            self = this;
+                    xhr.open("GET", "JSONSearch?q=" + document.querySelector("#searchable").value, true);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState < 4) {
+                            mensagens.value = "Loading...";
+                        }
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            mensagens.value = "success";
+                            self.value = "Sucess";
+                        }
+                        if (xhr.readyState === 4 && xhr.status !== 200) {
+                            mensagens.value = "error";
+                        }
+                    };
+                    xhr.send("JSONSearch?q=" + this.value);
+                });
+                /***
+                 * Ajax->
+                 *      XMLHttpRequest
+                 *      Progress Indicator
+                 *      Submission Throttling
+                 *      JSON-Message
+                 */
+                setInterval(function () {
+                    var container = document.querySelector(".results");
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "JSONSearch?q=" + document.querySelector("#searchable").value, true);
+                    xhr.onreadystatechange = function () {
+                        container.innerHTML = "";
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            mensagens.innerHTML = "success";
+                            var postObjects = JSON.parse(xhr.responseText);
+                            for (var i = 0; i < (postObjects.length - 1); i++) {
+                                var li = document.createElement("li");
+                                li.innerHTML = "<li><a href=\"/gag?p="+postObjects[i].id+"\">"+postObjects[i].title+"</a></li>";
+                                container.appendChild(li);
+                            }
+                             mensagens.innerHTML = "";
+                        }
+                        if (xhr.readyState < 4) {
+                            mensagens.innerHTML = "Loading...";
+                        }
+                        if (xhr.readyState === 4 && xhr.status !== 200) {
+                            mensagens.value = "Error";
+                        }
+                    };
+                    xhr.send();
+                }, 1500);
+            </script>
     </body>
 </html>

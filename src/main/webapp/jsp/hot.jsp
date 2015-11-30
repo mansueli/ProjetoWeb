@@ -53,6 +53,29 @@
             function shareTwitter(postid) {
                 window.location.href = "https://twitter.com/intent/tweet?url=http://localhost:8085/gag?p=" + postid;
             }
+                /***
+                 * Ajax->
+                 *      Javascript on Demand
+                 */ 
+            function loadjscssfile(filename, filetype) {
+                if (filetype == "js") { //if filename is a external JavaScript file
+                    var fileref = document.createElement('script')
+                    fileref.setAttribute("type", "text/javascript")
+                    fileref.setAttribute("src", filename)
+                } else if (filetype == "css") { //if filename is an external CSS file
+                    var fileref = document.createElement("link")
+                    fileref.setAttribute("rel", "stylesheet")
+                    fileref.setAttribute("type", "text/css")
+                    fileref.setAttribute("href", filename)
+                }
+                if (typeof fileref != "undefined")
+                    document.getElementsByTagName("head")[0].appendChild(fileref)
+            }
+           function onDemand(){
+               loadjscssfile("mustache.js", "js");
+               //loadjscssfile("loadContent.js", "js");
+               console.log("loaded");
+           }
         </script>  
         <div class="menu">
             <div class="menuLeft">
@@ -129,12 +152,12 @@
                         <hr>
                     </c:forEach>
                 </div>
-        <div class="sidebar">
+                <div class="sidebar">
                     <div class="item">
                         <div class="ad">
-                            <img src="./img/ad1.png"></img>
+                            <img src="./img/ad1.png" onclick="onDemand();"></img>
                         </div>
                     </div>
-        </div>
-    </body>
-</html>
+                </div>
+                </body>
+                </html>
