@@ -28,7 +28,6 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "FreshServlet", urlPatterns = {"/fresh"})
 public class FreshServlet extends HttpServlet {
-    final int page = 7;
     UserRepository userRepository = UserRepository.getInstance();
     PostRepository postRepository = PostRepository.getInstance();
 
@@ -44,13 +43,17 @@ public class FreshServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<PostEntity> postList;
+        int lastID ;
+        if (request.getParameterMap().containsKey("last")) {
+            String param = new String(request.getParameter("last"));
+        }
         if (request.getParameterMap().containsKey("p")) {
             String param = new String(request.getParameter("p"));
             int p = getIntParameterValue(param);
-            postList = postRepository.getPostsbyLikes(p+page);
+            postList = postRepository.getPostsbyLikesASC(p);
 
         } else {
-            postList = postRepository.getPostsbyLikes(page);
+            postList = postRepository.getPostsbyLikesASC(0);
         }
         request.setAttribute("postList", postList);
         try {
