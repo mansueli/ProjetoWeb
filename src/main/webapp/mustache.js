@@ -654,20 +654,20 @@ function loadMore() {
         p++;
     }
     var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", url + "?p=" + p + "&json", true);
-        xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
-                var data = JSON.parse(xmlhttp.responseText);
-                for (var i = 0; i < (data.length - 1); i++) {
-                    var result = Mustache.render(template, data[i]);
-                    console.log("loading->"+result);
-                    var resultDiv = document.createElement('div');
-                    resultDiv.innerHTML = result;
-                    container.appendChild(resultDiv);
+    xmlhttp.open("GET", url + "?p=" + p + "&json", true);
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+            var data = JSON.parse(xmlhttp.responseText);
+            for (var i = 0; i < (data.length - 1); i++) {
+                var result = Mustache.render(template, data[i]);
+                console.log("loading->"+result);
+                var resultDiv = document.createElement('div');
+                resultDiv.innerHTML = result;
+                container.appendChild(resultDiv);
 
-            }
-        };
-        xmlhttp.send();
+        }
+    };
+    xmlhttp.send();
         
  }
 loadMore();
