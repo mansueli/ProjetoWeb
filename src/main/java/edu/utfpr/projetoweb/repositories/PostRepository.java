@@ -52,7 +52,16 @@ public class PostRepository extends Repository<PostEntity> {
         q.setMaxResults(offset + 30);
         return q.getResultList();
     }
-
+    public List<PostEntity> getPostsbyLikesASC(int pageNumber) {
+        String query = String.format(
+                "from %s order by likes asc",
+                PostEntity.class.getSimpleName());
+        Query q = em.createQuery(query, PostEntity.class);
+        int offset = pageNumber * 30;
+        q.setFirstResult(offset);
+        q.setMaxResults(offset + 30);
+        return q.getResultList();
+    }
     public List<PostEntity> getPostsbyUser(UserEntity user) {
         String query = String.format(
                 "from %s where userid=%d order by likes desc",

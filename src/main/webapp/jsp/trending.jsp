@@ -16,8 +16,28 @@
         <link media="screen,projection" type="text/css" rel="stylesheet" href="post.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="sidebar.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="ads.css">
+        <script src="jquery-1.10.2.js"></script>
+        <script src="jquery-ui.js"></script>
     </head>
     <body>
+  <script>
+  $(function() {
+    $( ".sortable" ).sortable({
+      revert: true
+    });
+    $( "ul, li" ).disableSelection();
+  });
+  $(function(){
+     var $win = $(window);
+     $win.scrollTop(function(){
+        alert("boi");
+        if ($win.height() + $win.scrollTop() > (getDocumentHeight()-10)) {
+            alert("vaca");
+        }
+     });
+     
+  });
+  </script>
         <!---  Facebook  API  -->
         <script>
             // Facebook JS SDK
@@ -56,13 +76,13 @@
         </script>  
         <div class="menu">
             <div class="menuLeft">
-                <ul class="main">
+                <ul class="main sortable">
                     <li><a class="logo" href="/hot">9GAG</a></li>
                     <li><a class="navmain hot" href="/hot">Hot</a></li>
                     <li><a class="navmain trending selected" href="/trending">Trending</a></li>
                     <li><a class="navmain fresh" href="/fresh">Fresh</a></li>
                 </ul>
-                <ul>
+                <ul class="sortable">
                     <li><a class="navalt" href="/category?c=funny">Funny</a></li>
                     <li><a class="navalt" href="/category?c=gaming">Gaming</a></li>
                     <li><a class="navalt" href="/category?c=cosplay">Cosplay</a></li>
@@ -92,7 +112,7 @@
             <div class="content">
                 <div class="stream">
                     <c:forEach var="post" items="${postList}">
-                        <div class="post">
+                        <div class="post sortable">
                             <div>
                                 <h2><a href="/gag?p=${post.id}">  ${post.title} </a></h2>
                             </div>
