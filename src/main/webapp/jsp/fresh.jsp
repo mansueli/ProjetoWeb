@@ -17,7 +17,8 @@
         <link media="screen,projection" type="text/css" rel="stylesheet" href="sidebar.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="ads.css">
 
-        <script type="text/javascript" src="autoRefresh.js">
+        <!--<script type="text/javascript" src="mustache.js"></script>-->
+        <script type="text/javascript" src="autoRefresh.js"></script>
     </head>
     <body>
         <!---  Facebook  API  -->
