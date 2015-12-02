@@ -1,17 +1,1 @@
-div.sidebar {
-    float: right;
-    width: 300px;
-}
-
-div.item {
-    margin-bottom: 20px;
-}
-
-div.item .post h3 {
-    font-size: 14px;
-}
-
-div.sidebar img {
-    border: 1px solid black;
-    width: 298px;
-}
+div.sidebar{float:right;width:300px}div.item{margin-bottom:20px}div.item .post h3{font-size:14px}div.sidebar img{border:1px solid #000;width:298px}
