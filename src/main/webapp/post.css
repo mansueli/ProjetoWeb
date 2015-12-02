@@ -92,3 +92,13 @@ a.report:hover {
     color: #000;
     text-decoration: underline;
 }
+
+.btn.more {
+    background: #09F;
+    color: white;
+    width: 100%;
+}
+
+.btn.more:hover {
+    background: #33ADFF;
+}

@@ -159,5 +159,6 @@
                         </div>
                     </div>
                 </div>
+                <a class="btn more" onclick="onDemand();">I want more posts!</a>
                 </body>
                 </html>
