@@ -46,8 +46,9 @@ public class FreshServlet extends HttpServlet {
         int lastID ;
         if (request.getParameterMap().containsKey("last")) {
             String param = new String(request.getParameter("last"));
-        }
-        if (request.getParameterMap().containsKey("p")) {
+            int p = getIntParameterValue(param);
+            postList = postRepository.getNewPosts(p);
+        } else if (request.getParameterMap().containsKey("p")) {
             String param = new String(request.getParameter("p"));
             int p = getIntParameterValue(param);
             postList = postRepository.getPostsbyLikesASC(p);
