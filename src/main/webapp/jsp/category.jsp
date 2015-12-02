@@ -15,7 +15,6 @@
         <link media="screen,projection" type="text/css" rel="stylesheet" href="main.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="post.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="sidebar.css">
-        <link media="screen,projection" type="text/css" rel="stylesheet" href="ads.css">
     </head>
     <body>
         <!---  Facebook  API  -->

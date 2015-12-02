@@ -7,7 +7,6 @@
         <link media="screen,projection" type="text/css" rel="stylesheet" href="content.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="main.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="post.css">
-        <link media="screen,projection" type="text/css" rel="stylesheet" href="ads.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="popup.css">
     </head>
     <body class="dark">

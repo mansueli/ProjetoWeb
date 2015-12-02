@@ -29,12 +29,12 @@ public class RedditStealer {
     public static void main(String[] args) {
         UserRepository userRepository = UserRepository.getInstance();
         PostRepository postRepository = PostRepository.getInstance();
-        String subreddit = "comics";
-        String username = subreddit + "maniac";
+        String subreddit = "funny";
+        String username = subreddit + "doood";
         UserEntity user = new UserEntity(username, username + "@example.com", "", "4321");
         //userRepository.save(user);
         user = userRepository.findbyUsername(username);
-        String jsonreturn = getJSONString("http://www.reddit.com/r/" + subreddit + "/.json?limit=60");
+        String jsonreturn = getJSONString("http://www.reddit.com/r/" + subreddit + "/.json?limit=90");
         
         System.out.println(jsonreturn);
         String[] array = jsonreturn.split("\"domain\"");
@@ -44,7 +44,7 @@ public class RedditStealer {
                 first = !first;
             } else {
                 String title = getField("title", str);
-                int likes = (int) (Math.random() * 200);
+                int likes = (int) (Math.random() * 300);
                 String url = getURL(str);
                 String validatedURL = urlChecker(url);
                 if (!validatedURL.isEmpty()) {

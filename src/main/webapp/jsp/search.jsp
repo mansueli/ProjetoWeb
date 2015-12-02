@@ -42,26 +42,10 @@
                  *      JSON-Message
                  */
                 var container = document.querySelector(".popup"),
-                mensagens = document.querySelector(".msg");
+                        mensagens = document.querySelector(".msg");
                 document.querySelector("#searchable").addEventListener("keyup", function (ev) {
                     if (ev.keyCode != 13)
                         return;
-                    var xhr = new XMLHttpRequest(),
-                            self = this;
-                    xhr.open("GET", "JSONSearch?q=" + document.querySelector("#searchable").value, true);
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState < 4) {
-                            mensagens.value = "Loading...";
-                        }
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            mensagens.value = "success";
-                            self.value = "Sucess";
-                        }
-                        if (xhr.readyState === 4 && xhr.status !== 200) {
-                            mensagens.value = "error";
-                        }
-                    };
-                    xhr.send("JSONSearch?q=" + this.value);
                 });
                 /***
                  * Ajax->
@@ -74,6 +58,18 @@
                     var container = document.querySelector(".results");
                     var xhr = new XMLHttpRequest();
                     xhr.open("GET", "JSONSearch?q=" + document.querySelector("#searchable").value, true);
+                    xhr.onprogress = function () {
+//                        alert("loading");
+                         mensagens.innerHTML = "loading...";
+                    }
+                    xhr.onloadstart = function () {
+//                        alert("search");
+                        mensagens.innerHTML = "Searching...";
+                    }
+                    xhr.onloadend = function (e) {
+                        mensagens.innerHTML = "";
+                    }
+                    xhr.send();
                     xhr.onreadystatechange = function () {
                         container.innerHTML = "";
                         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -81,10 +77,10 @@
                             var postObjects = JSON.parse(xhr.responseText);
                             for (var i = 0; i < (postObjects.length - 1); i++) {
                                 var li = document.createElement("li");
-                                li.innerHTML = "<li><a href=\"/gag?p="+postObjects[i].id+"\">"+postObjects[i].title+"</a></li>";
+                                li.innerHTML = "<li><a href=\"/gag?p=" + postObjects[i].id + "\">" + postObjects[i].title + "</a></li>";
                                 container.appendChild(li);
                             }
-                             mensagens.innerHTML = "";
+                            mensagens.innerHTML = "";
                         }
                         if (xhr.readyState < 4) {
                             mensagens.innerHTML = "Loading...";
@@ -93,8 +89,7 @@
                             mensagens.value = "Error";
                         }
                     };
-                    xhr.send();
-                }, 1500);
+                }, 2500);
             </script>
     </body>
 </html>

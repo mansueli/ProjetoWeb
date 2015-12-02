@@ -12,6 +12,7 @@ import edu.utfpr.projetoweb.repositories.UserRepository;
 import static edu.utfpr.projetoweb.utils.ServletUtils.getIntParameterValue;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.Thread.sleep;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.ServletException;
@@ -40,7 +41,7 @@ public class JSONSearch extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException{
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
