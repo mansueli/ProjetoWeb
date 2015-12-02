@@ -642,7 +642,7 @@ function get(name){
 }
 
 function loadMore() {
-    var url = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname;
+    var url = window.location.protocol + "//" + window.location.host + window.location.pathname;
     //var url = document.location;
     if (isNaN(get("p"))){
         p = 1;
