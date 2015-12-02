@@ -15,10 +15,7 @@
         <link media="screen,projection" type="text/css" rel="stylesheet" href="main.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="post.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="sidebar.css">
-        <link media="screen,projection" type="text/css" rel="stylesheet" href="ads.css">
-
-        <!--<script type="text/javascript" src="mustache.js"></script>-->
-        <script type="text/javascript" src="autoRefresh.js"></script>
+        <script type="text/javascript" src="mustache_fresh.js"></script>
     </head>
     <body>
         <!---  Facebook  API  -->
@@ -93,7 +90,6 @@
             </div>
 
             <div class="content">
-                <a class="btn more" onclick="refresh();">Refresh!</a>
                 <div class="stream">
                     <c:forEach var="post" items="${postList}">
                         <div class="post">
@@ -140,5 +136,8 @@
                         </div>
                     </div>
         </div>
+     <script type="text/javascript">
+        autoRefresh();
+     </script>
     </body>
 </html>

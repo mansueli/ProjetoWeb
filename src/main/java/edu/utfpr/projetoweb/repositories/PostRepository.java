@@ -65,13 +65,20 @@ public class PostRepository extends Repository<PostEntity> {
 
     public List<PostEntity> getNewPosts(int currentPostId) {
         String query = String.format(
-                "from %s where id > %d order by id desc",
+                "from %s where id > %d order by id asc",
                 PostEntity.class.getSimpleName(),
                 currentPostId);
         Query q = em.createQuery(query, PostEntity.class);
         return q.getResultList();
     }
-
+    public List<PostEntity> getNewPosts() {
+        String query = String.format(
+                "from %s order by id desc",
+                PostEntity.class.getSimpleName());
+        Query q = em.createQuery(query, PostEntity.class);
+        q.setMaxResults(20);
+        return q.getResultList();
+    }
     public List<PostEntity> getPostsbyUser(UserEntity user) {
         String query = String.format(
                 "from %s where userid=%d order by likes desc",

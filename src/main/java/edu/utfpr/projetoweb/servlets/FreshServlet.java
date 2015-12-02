@@ -48,13 +48,9 @@ public class FreshServlet extends HttpServlet {
             String param = new String(request.getParameter("last"));
             int p = getIntParameterValue(param);
             postList = postRepository.getNewPosts(p);
-        } else if (request.getParameterMap().containsKey("p")) {
-            String param = new String(request.getParameter("p"));
-            int p = getIntParameterValue(param);
-            postList = postRepository.getPostsbyLikesASC(p);
-
-        } else {
-            postList = postRepository.getPostsbyLikesASC(0);
+        } 
+        else    {
+            postList = postRepository.getNewPosts();
         }
         request.setAttribute("postList", postList);
         try {

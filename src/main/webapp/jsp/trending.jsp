@@ -15,7 +15,6 @@
         <link media="screen,projection" type="text/css" rel="stylesheet" href="main.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="post.css">
         <link media="screen,projection" type="text/css" rel="stylesheet" href="sidebar.css">
-        <link media="screen,projection" type="text/css" rel="stylesheet" href="ads.css">
         <script src="jquery-1.10.2.js"></script>
         <script src="jquery-ui.js"></script>
     </head>
@@ -30,9 +29,7 @@
   $(function(){
      var $win = $(window);
      $win.scrollTop(function(){
-        alert("boi");
         if ($win.height() + $win.scrollTop() > (getDocumentHeight()-10)) {
-            alert("vaca");
         }
      });
      
